@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geoda - Servicios Integrales para la Minería</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        header {
+            background: linear-gradient(rgba(52, 73, 94, 0.7), rgba(44, 62, 80, 0.7)), 
+                        url('images/header-background.jpg') center center / cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            z-index: 0;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 250px;
+            width: auto;
+            display: block;
+        }
+
+        nav {
+            background: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            padding: 1rem 0;
+        }
+
+        .hero {
+            margin-top: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s ease;
+            padding: 0.5rem 1rem;
+            display: block;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #c0a062;
+            border-bottom-color: #c0a062;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)),
+                        url('images/Geoda escrita en la tierra.png') center bottom / cover no-repeat;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            animation: fadeIn 1.2s ease;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            background-position: center 60%;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        h2.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #c0a062;
+            transition: width 0.6s ease;
+        }
+
+        h2.visible::after {
+            width: 60px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #34495e;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            overflow: hidden;
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            border-color: #c0a062;
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .service-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .service-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-card li {
+            padding: 0.6rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #546e7a;
+        }
+
+        .service-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1rem;
+            width: 6px;
+            height: 6px;
+            background: #c0a062;
+            border-radius: 50%;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .mv-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 4px;
+            border-left: 3px solid #c0a062;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.4s ease;
+        }
+
+        .mv-card:nth-child(2) {
+            transform: translateX(30px);
+        }
+
+        .mv-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mv-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transform: translateX(5px);
+        }
+
+        .mv-card h3 {
+            margin-bottom: 1.2rem;
+        }
+
+        .mv-card p {
+            color: #546e7a;
+            text-align: justify;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .value-item {
+            background: white;
+            padding: 1.8rem;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .value-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .value-item:hover {
+            border-color: #c0a062;
+            transform: scale(1.03);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .value-item h4 {
+            color: #2c3e50;
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .value-item p {
+            color: #546e7a;
+            font-size: 0.95rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .team-member {
+            text-align: center;
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .team-member.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-member:hover {
+            border-color: #c0a062;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .team-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem auto;
+            border: 3px solid #c0a062;
+        }
+
+        .team-member h4 {
+            color: #2c3e50;
+            margin-top: 1rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .team-member p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-card:hover {
+            border-color: #c0a062;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .contact-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-card p {
+            color: #546e7a;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-card a {
+            color: #c0a062;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+
+        .contact-card a:hover {
+            color: #a08850;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+                    @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                gap: 0.5rem;
+                padding: 0 10px;
+            }
+
+            nav a {
+                padding: 0.5rem 0.7rem;
+                font-size: 0.9rem;
+            }
+
+            .logo img {
+                height: 150px;
+            }
+
+            header {
+                padding: 8rem 0 2rem 0;
+            }
+
+            .hero {
+                min-height: 100vh;
+                padding: 8rem 0;
+                background-position: center center;
+            }
+
+            .service-card-image {
+                height: 180px;
+            }
+
+            .team-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .services-grid,
+            .mission-vision,
+            .values-grid,
+            .team-grid,
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Geoda - Servicios Integrales para la Minería">
+            </div>
+        </div>
+    </header>
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="#header" data-section="header">Inicio</a></li>
+            <li><a href="#servicios" data-section="servicios">Servicios</a></li>
+            <li><a href="#nosotros" data-section="nosotros">Nosotros</a></li>
+            <li><a href="#equipo" data-section="equipo">Equipo</a></li>
+            <li><a href="#contacto" data-section="contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>De la Exploración al Valor</h1>
+            <p>Soluciones Integrales en Minería</p>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="images/exploracion.png" alt="Prospección y Exploración Minera" class="service-card-image">
+                    <h3>Prospección y Exploración Minera</h3>
+                    <ul>
+                        <li>Búsqueda y evaluación de proyectos</li>
+                        <li>Tareas de campo</li>
+                        <li>Muestreo de sedimentos y suelos</li>
+                        <li>Muestreo de esquirlas (Rock-chip sampling)</li>
+                        <li>Mapeo geológico básico</li>
+                        <li>Control de logística de campo</li>
+                        <li>Gestión de datos y gabinete</li>
+                        <li>Soporte en informes técnicos</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <img src="images/perforacion.png" alt="Perforación: Consultoría y Servicios" class="service-card-image">
+                    <h3>Perforación: Consultoría y Servicios</h3>
+                    <ul>
+                        <li>Implementación de SGI</li>
+                        <li>Auditoría de programas de perforación</li>
+                        <li>Formación de RRHH</li>
+                        <li>Perforación en sistemas RC, DDH, DTH y Rotary</li>
+                        <li>Perforación direccionada</li>
+                        <li>Sondajes geotécnicos</li>
+                        <li>Orientación de testigos</li>
+                        <li>Medición de desvíos</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <img src="images/gis.png" alt="Soporte Técnico GIS" class="service-card-image">
+                    <h3>Soporte Técnico GIS</h3>
+                    <ul>
+                        <li>Revisión bibliográfica</li>
+                        <li>Mapeo con drones</li>
+                        <li>Digitalización de datos</li>
+                        <li>Georreferenciación</li>
+                        <li>Elaboración de secciones transversales</li>
+                        <li>Confección de mapas e ilustraciones</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <img src="images/drones.png" alt="Espectrometría y Drones" class="service-card-image">
+                    <h3>Espectrometría y Drones</h3>
+                    <ul>
+                        <li>Estudios técnicos especiales</li>
+                        <li>Dronedeploy</li>
+                        <li>Captura de imágenes</li>
+                        <li>Mapeo aéreo</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <img src="images/infraestructura.png" alt="Infraestructura" class="service-card-image">
+                    <h3>Infraestructura</h3>
+                    <ul>
+                        <li>Construcción de caminos</li>
+                        <li>Plataformas</li>
+                        <li>Campamentos</li>
+                        <li>Provisión de energía eléctrica</li>
+                        <li>Calicatas para evaluación geológica</li>
+                        <li>Estudio de suelos</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <img src="images/medio amniente.png" alt="Medio Ambiente" class="service-card-image">
+                    <h3>Medio Ambiente</h3>
+                    <ul>
+                        <li>Informe de Impacto Ambiental</li>
+                        <li>Estudio de línea de base</li>
+                        <li>Evaluación de presencia de minerales</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros">
+        <div class="container">
+            <h2>Misión y Visión</h2>
+            <div class="mission-vision">
+                <div class="mv-card">
+                    <h3>Nuestra Misión</h3>
+                    <p>Nuestra misión en Geoda es brindar servicios de consultoría en exploración minera con altos estándares de calidad, precisión técnica y compromiso ético. Acompañamos a nuestros clientes en todas las etapas de sus proyectos, desde la planificación inicial hasta la interpretación de resultados, aportando soluciones personalizadas que optimizan los recursos y reducen los riesgos. Trabajamos con vocación de servicio, promoviendo una relación de confianza, cercanía y resultados tangibles.</p>
+                </div>
+
+                <div class="mv-card">
+                    <h3>Nuestra Visión</h3>
+                    <p>En Geoda aspiramos a consolidarnos como la consultora de exploración minera de referencia en la región, reconocida por la excelencia de nuestros servicios y el compromiso con cada proyecto. Nuestra visión es ser aliados estratégicos de nuestros clientes, brindando soluciones integrales, innovadoras y eficientes, a través de un equipo de profesionales de primera línea con amplia experiencia en el sector. Creemos en una minería responsable, sustentable y técnicamente sólida, capaz de generar valor desde las primeras etapas de exploración hasta la toma de decisiones clave.</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 4rem;">Nuestros Valores</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h4>Excelencia Profesional</h4>
+                    <p>Contamos con un equipo altamente calificado, comprometido con la mejora continua y la actualización técnica permanente.</p>
+                </div>
+                <div class="value-item">
+                    <h4>Compromiso con el Cliente</h4>
+                    <p>Escuchamos, entendemos y nos adaptamos a las necesidades específicas de cada proyecto.</p>
+                </div>
+                <div class="value-item">
+                    <h4>Integridad</h4>
+                    <p>Actuamos con transparencia, ética y responsabilidad en todas nuestras acciones.</p>
+                </div>
+                <div class="value-item">
+                    <h4>Innovación</h4>
+                    <p>Aplicamos tecnología de vanguardia y metodologías actualizadas para ofrecer soluciones más precisas y efectivas.</p>
+                </div>
+                <div class="value-item">
+                    <h4>Sustentabilidad</h4>
+                    <p>Promovemos prácticas responsables con el entorno, cuidando los recursos naturales y las comunidades donde operamos.</p>
+                </div>
+                <div class="value-item">
+                    <h4>Trabajo en Equipo</h4>
+                    <p>Fomentamos un ambiente colaborativo, multidisciplinario y orientado a resultados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipo">
+        <div class="container">
+            <h2>Nuestro Equipo de Profesionales</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="images/equipo.png" alt="Raúl Velázquez" class="team-image">
+                    <h4>Raúl Velázquez</h4>
+                    <p>Director de Negocios y Proyectos</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/equipo.png" alt="Lic. Claudio Devaux" class="team-image">
+                    <h4>Lic. Claudio Devaux</h4>
+                    <p>Geología</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/equipo.png" alt="Lic. Nicolas Valle" class="team-image">
+                    <h4>Lic. Nicolas Valle</h4>
+                    <p>Geología</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/equipo.png" alt="Ing. Fernando Valdés" class="team-image">
+                    <h4>Ing. Fernando Valdés</h4>
+                    <p>Ingeniería</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/equipo.png" alt="Facundo Becerra" class="team-image">
+                    <h4>Facundo Becerra</h4>
+                    <p>Técnico</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/equipo.png" alt="Javier Morales" class="team-image">
+                    <h4>Javier Morales</h4>
+                    <p>Técnico</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="container">
+            <h2>Comuníquese con Nosotros</h2>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3>Sede Mendoza</h3>
+                    <p>Raúl Velázquez</p>
+                    <a href="https://wa.me/5492612574780?text=Hola%20Raúl,%20me%20comunico%20desde%20la%20página%20web%20de%20Geoda" target="_blank" rel="noopener noreferrer">+54 9 261 257-4780</a>
+                </div>
+                <div class="contact-card">
+                    <h3>Sede San Juan</h3>
+                    <p>Federico Chavez</p>
+                    <a href="https://wa.me/5492645428782?text=Hola%20Federico,%20me%20comunico%20desde%20la%20página%20web%20de%20Geoda" target="_blank" rel="noopener noreferrer">+54 9 264 542-8782</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Geoda - Servicios Integrales para la Minería. Todos los derechos reservados.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Facilitando la Industria Minera</p>
+        </div>
+    </footer>
+
+    <script>
+        // Forzar scroll al inicio al cargar la página
+        window.onload = function() {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 0);
+        };
+
+        // También al recargar
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+
+        // Sistema de navegación activa
+        const sections = document.querySelectorAll('section[id], header[id]');
+        const navLinks = document.querySelectorAll('nav a');
+
+        function updateActiveNav() {
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        const linkSection = link.getAttribute('data-section');
+                        if (linkSection === sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+            // Si estamos en el tope de la página, activar "Inicio"
+            if (window.scrollY < 100) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                document.querySelector('a[data-section="header"]').classList.add('active');
+            }
+        }
+
+        // Ejecutar al hacer scroll
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Ejecutar al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            updateActiveNav();
+        });
+
+        // Intersection Observer para animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observar todos los elementos animables
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('h2, .service-card, .mv-card, .value-item, .team-member, .contact-card');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
