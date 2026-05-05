@@ -1,0 +1,344 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+.app{display:flex;flex-direction:column;width:100%;min-height:520px}
+
+/* TABS móvil */
+.tabs{display:flex;background:#0b1118;border-bottom:1px solid rgba(192,160,98,.2);flex-shrink:0}
+.tab{flex:1;padding:11px 0;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-align:center;cursor:pointer;color:rgba(255,255,255,.3);border:none;background:none;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.tab.active{color:#c0a062;border-bottom-color:#c0a062}
+
+.sect{display:flex;flex:1;overflow:hidden}
+
+/* PANEL */
+.sect-panel{width:100%;background:#111923;display:none;flex-direction:column;overflow-y:auto;max-height:calc(100vh - 44px);scrollbar-width:thin;scrollbar-color:rgba(192,160,98,.2) transparent}
+.sect-panel::-webkit-scrollbar{width:3px}.sect-panel::-webkit-scrollbar-thumb{background:rgba(192,160,98,.25);border-radius:2px}
+.sect-panel.show{display:flex}
+
+/* PREVIEW */
+.sect-preview{width:100%;display:none;overflow:auto;background:#1e2630;align-items:flex-start;justify-content:center;padding:18px 12px}
+.sect-preview.show{display:flex}
+
+/* DESKTOP */
+@media(min-width:620px){
+  .tabs{display:none}
+  .sect{flex-direction:row}
+  .sect-panel{display:flex!important;width:264px;min-width:264px;max-height:660px}
+  .sect-preview{display:flex!important;max-height:660px}
+}
+
+/* PANEL INTERIOR */
+.ph{padding:14px 17px 11px;background:#0b1118;border-bottom:1px solid rgba(192,160,98,.18);flex-shrink:0}
+.ph-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c0a062;font-weight:700}
+.ph-sub{font-size:9px;color:rgba(255,255,255,.26);margin-top:2px;letter-spacing:.3px}
+
+.sec{padding:11px 17px 6px;border-bottom:1px solid rgba(255,255,255,.045)}
+.slbl{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(192,160,98,.55);font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.slbl::after{content:'';flex:1;height:1px;background:rgba(192,160,98,.15)}
+
+.f{margin-bottom:8px}
+.f label{display:block;font-size:9.5px;color:rgba(255,255,255,.35);margin-bottom:3px;letter-spacing:.3px}
+.f input,.f select,.f textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:4px;padding:6px 9px;font-size:11px;color:rgba(255,255,255,.78);font-family:inherit;outline:none;transition:border .18s,background .18s}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:rgba(192,160,98,.7);background:rgba(255,255,255,.08)}
+.f select option{background:#111923;color:#ccc}
+.f textarea{resize:vertical;min-height:76px;line-height:1.55}
+
+.pfoot{padding:11px 17px 16px;background:#0b1118;border-top:1px solid rgba(192,160,98,.12);flex-shrink:0;margin-top:auto}
+.btn-print{width:100%;padding:10px;background:#c0a062;color:#0b1118;border:none;border-radius:5px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .2s,transform .15s}
+.btn-print:hover{background:#d4b878;transform:translateY(-1px)}
+.btn-print:active{transform:scale(.98)}
+
+/* LETTER WRAPPER */
+#ltr-wrap{position:relative;flex-shrink:0}
+
+/* LETTER — 794×1123 escalada */
+.letter{width:794px;min-height:1123px;background:#fff;transform-origin:top left;display:flex;flex-direction:column;box-shadow:0 8px 36px rgba(0,0,0,.55);print-color-adjust:exact;-webkit-print-color-adjust:exact}
+
+/* HEADER */
+.lhdr{position:relative;height:268px;overflow:hidden;flex-shrink:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.lhdr-bg{position:absolute;inset:0;background:#1a3a52 center/cover no-repeat;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.lhdr-ov{position:absolute;inset:0;background:linear-gradient(130deg,rgba(10,18,30,.9) 0%,rgba(10,18,30,.38) 55%,rgba(7,15,26,.82) 100%);print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.lhdr-rule{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#c0a062 10%,#c0a062 90%,transparent);print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.lhdr-acc{position:absolute;top:0;right:0;width:3px;height:100%;background:linear-gradient(180deg,transparent,rgba(192,160,98,.35),transparent);print-color-adjust:exact;-webkit-print-color-adjust:exact}
+
+.lhdr-logo{position:absolute;top:30px;left:44px}
+.lhdr-logo img{height:78px;width:auto;object-fit:contain;display:none}
+.logo-ph{color:#fff}
+.logo-ph strong{font-size:33px;font-weight:700;letter-spacing:5px;font-family:Georgia,serif;color:#fff;line-height:1}
+.logo-ph strong em{color:#c0a062;font-style:normal;margin-right:2px}
+.logo-bar{width:88px;height:1px;background:rgba(192,160,98,.38);margin:9px 0 8px}
+.logo-tag{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.52);font-weight:300;font-family:'Trebuchet MS',sans-serif}
+
+.ldiv{position:absolute;bottom:30px;right:44px;text-align:right}
+.div-lbl{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.42);font-weight:300;margin-bottom:7px;font-family:'Trebuchet MS',sans-serif}
+.div-name{font-size:24px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:#7dd6c2;font-family:Georgia,serif;display:inline-block;border-bottom:2.5px solid #c0a062;padding-bottom:5px;line-height:1}
+
+/* BODY */
+.lbody{flex:1;padding:38px 52px 22px}
+.lmeta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:9px}
+.lref{font-size:10.5px;color:#aaa;line-height:1.7}
+.lref em{display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:1.5px;color:#bbb;font-style:normal;margin-bottom:1px}
+.ldate{font-size:11px;color:#555;font-family:Georgia,serif;font-style:italic}
+.brule{width:100%;height:1px;background:linear-gradient(90deg,#c0a062,rgba(192,160,98,.06));margin:13px 0 20px;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+
+.lrecip{margin-bottom:20px}
+.rlbl{font-size:8.5px;text-transform:uppercase;letter-spacing:2px;color:#c0a062;display:block;margin-bottom:6px}
+.rname{font-size:13.5px;color:#1a2535;font-weight:700;display:block;font-family:Georgia,serif;letter-spacing:.2px}
+.rsub{font-size:11px;color:#666;display:block;margin-top:3px;font-family:Georgia,serif;font-style:italic}
+
+.lsubj{font-size:12.5px;font-weight:700;color:#1a2535;margin-bottom:16px;font-family:Georgia,serif;padding:10px 16px;border-left:3px solid #c0a062;background:#fdf8f2;display:none;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.ltext{font-size:12.5px;line-height:2.05;color:#2c3e50;text-align:justify;white-space:pre-wrap;word-break:break-word;font-family:Georgia,'Palatino Linotype',serif}
+
+.lsign{margin-top:46px}
+.sign-sal{font-size:12px;color:#2c3e50;font-family:Georgia,serif;font-style:italic;margin-bottom:40px}
+.sign-line{width:185px;height:1px;background:#bbb;margin-bottom:9px}
+.sname{font-size:13px;font-weight:700;color:#1a2535;font-family:Georgia,serif;display:block;min-height:16px}
+.srole{font-size:11px;color:#666;display:block;margin-top:3px;min-height:14px;letter-spacing:.2px}
+.sco{font-size:9.5px;color:#c0a062;display:block;margin-top:3px;letter-spacing:1.5px;text-transform:uppercase;min-height:12px}
+
+/* FOOTER */
+.lfooter{margin-top:auto;background:#f9f6f0;border-top:2px solid #ede0c4;padding:14px 52px 18px;display:flex;align-items:center;justify-content:center;gap:16px;flex-shrink:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.fdot{width:5px;height:5px;border-radius:50%;background:#c0a062;flex-shrink:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.fslogan{font-style:italic;font-size:11px;color:#c0a062;font-family:Georgia,serif;letter-spacing:.5px}
+
+/* PRINT */
+@media print{
+  @page{size:A4;margin:0}
+  .app,.sect{display:block!important}
+  .tabs,.sect-panel{display:none!important}
+  .sect-preview{display:block!important;background:none!important;padding:0!important;overflow:visible!important}
+  #ltr-wrap{width:100%!important;height:auto!important;position:static!important}
+  .letter{transform:none!important;width:210mm!important;min-height:297mm!important;box-shadow:none!important;position:static!important}
+  *{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+}
+</style>
+
+<div class="app">
+  <!-- tabs solo en móvil -->
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('panel',this)">✏ Editar</button>
+    <button class="tab" onclick="showTab('preview',this)">◻ Vista previa</button>
+  </div>
+
+  <div class="sect">
+    <!-- ── PANEL ── -->
+    <div class="sect-panel show" id="tab-panel">
+      <div class="ph">
+        <div class="ph-title">Geoda — Carta Corporativa</div>
+        <div class="ph-sub">Editor de hoja membretada</div>
+      </div>
+
+      <div class="sec">
+        <div class="slbl">Documento</div>
+        <div class="f"><label>División</label>
+          <select id="sel-div" onchange="applyDiv()">
+            <option value="PERFORACIONES">Perforaciones</option>
+            <option value="EXPLORACIÓN">Exploración</option>
+            <option value="GIS">GIS</option>
+            <option value="MEDIO AMBIENTE">Medio Ambiente</option>
+            <option value="INFRAESTRUCTURA">Infraestructura</option>
+            <option value="CONSULTORÍA">Consultoría</option>
+            <option value="custom">Otra división...</option>
+          </select>
+        </div>
+        <div class="f" id="cwrap" style="display:none"><label>Nombre personalizado</label>
+          <input type="text" id="cdiv" placeholder="Ej: OPERACIONES" oninput="setDiv(this.value.toUpperCase())">
+        </div>
+        <div class="f"><label>Ref. / N° Expediente (opcional)</label>
+          <input type="text" id="f-ref" placeholder="Ej: GEO-2026-042" oninput="updateRef(this.value)">
+        </div>
+        <div class="f"><label>Lugar y fecha</label>
+          <input type="text" value="Mendoza, 2 de mayo de 2026" oninput="q('ldate').textContent=this.value">
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="slbl">Destinatario</div>
+        <div class="f"><label>Nombre / Empresa</label>
+          <input type="text" value="Estimado Cliente / Proveedor," oninput="q('rname').textContent=this.value">
+        </div>
+        <div class="f"><label>Cargo / Referencia</label>
+          <input type="text" value="Presente" oninput="q('rsub').textContent=this.value">
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="slbl">Contenido</div>
+        <div class="f"><label>Asunto (opcional)</label>
+          <input type="text" placeholder="RE: Propuesta técnica..." oninput="updateSubject(this.value)">
+        </div>
+        <div class="f"><label>Cuerpo de la carta</label>
+          <textarea oninput="q('ltext').textContent=this.value">Por medio de la presente, nos dirigimos a usted con el propósito de presentar formalmente nuestra hoja membretada institucional. En GEODA División Perforaciones, nos comprometemos a brindar soluciones integrales de alta calidad para facilitar y potenciar el desarrollo de la industria minera.
+
+Este documento sirve como plantilla oficial para nuestras comunicaciones corporativas, propuestas técnicas, informes de operaciones y correspondencia comercial. Agradecemos de antemano su confianza en nuestros servicios y reafirmamos nuestro compromiso con la excelencia operativa y la seguridad en cada uno de nuestros proyectos de perforación.
+
+Sin otro particular, y quedando a su entera disposición para cualquier consulta o requerimiento adicional, le saludamos atentamente.</textarea>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="slbl">Firma</div>
+        <div class="f"><label>Nombre del firmante</label>
+          <input type="text" placeholder="Ej: Raúl Velázquez" oninput="q('sname').textContent=this.value">
+        </div>
+        <div class="f"><label>Cargo</label>
+          <input type="text" placeholder="Ej: Director de Negocios" oninput="q('srole').textContent=this.value">
+        </div>
+        <div class="f"><label>División / Empresa</label>
+          <input type="text" placeholder="Ej: Geoda — División Perforaciones" oninput="q('sco').textContent=this.value">
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="slbl">Pie de página</div>
+        <div class="f"><label>Eslogan 1</label>
+          <input type="text" value='"De la explicación al valor"' oninput="q('fsl1').textContent=this.value">
+        </div>
+        <div class="f"><label>Eslogan 2</label>
+          <input type="text" value='"Soluciones integrales en minería"' oninput="q('fsl2').textContent=this.value">
+        </div>
+      </div>
+
+      <div class="pfoot">
+        <button class="btn-print" onclick="doPrint()"><span>⎙</span> Imprimir / Guardar PDF</button>
+      </div>
+    </div>
+
+    <!-- ── PREVIEW ── -->
+    <div class="sect-preview" id="tab-preview">
+      <div id="ltr-wrap">
+        <div class="letter">
+          <div class="lhdr">
+            <div class="lhdr-bg" id="lhdr-bg"></div>
+            <div class="lhdr-ov"></div>
+            <div class="lhdr-rule"></div>
+            <div class="lhdr-acc"></div>
+            <div class="lhdr-logo">
+              <img id="logo-img" src="images/logo.png" alt="Logo"
+                onload="this.style.display='block';document.getElementById('logo-ph').style.display='none'"
+                onerror="this.style.display='none';document.getElementById('logo-ph').style.display='block'">
+              <div id="logo-ph" class="logo-ph">
+                <strong><em>◆</em>GEODA</strong>
+                <div class="logo-bar"></div>
+                <div class="logo-tag">Facilitando la Industria Minera</div>
+              </div>
+            </div>
+            <div class="ldiv">
+              <div class="div-lbl">División</div>
+              <div class="div-name" id="div-name">PERFORACIONES</div>
+            </div>
+          </div>
+
+          <div class="lbody">
+            <div class="lmeta">
+              <div class="lref" id="lref-block" style="visibility:hidden">
+                <em>Referencia</em><span id="lref-val"></span>
+              </div>
+              <div class="ldate" id="ldate">Mendoza, 2 de mayo de 2026</div>
+            </div>
+            <div class="brule"></div>
+            <div class="lrecip">
+              <span class="rlbl">Dirigido a</span>
+              <span class="rname" id="rname">Estimado Cliente / Proveedor,</span>
+              <span class="rsub" id="rsub">Presente</span>
+            </div>
+            <div class="lsubj" id="lsubj"></div>
+            <div class="ltext" id="ltext">Por medio de la presente, nos dirigimos a usted con el propósito de presentar formalmente nuestra hoja membretada institucional. En GEODA División Perforaciones, nos comprometemos a brindar soluciones integrales de alta calidad para facilitar y potenciar el desarrollo de la industria minera.
+
+Este documento sirve como plantilla oficial para nuestras comunicaciones corporativas, propuestas técnicas, informes de operaciones y correspondencia comercial. Agradecemos de antemano su confianza en nuestros servicios y reafirmamos nuestro compromiso con la excelencia operativa y la seguridad en cada uno de nuestros proyectos de perforación.
+
+Sin otro particular, y quedando a su entera disposición para cualquier consulta o requerimiento adicional, le saludamos atentamente.</div>
+            <div class="lsign">
+              <div class="sign-sal">Atentamente,</div>
+              <div class="sign-line"></div>
+              <span class="sname" id="sname"></span>
+              <span class="srole" id="srole"></span>
+              <span class="sco" id="sco"></span>
+            </div>
+          </div>
+
+          <div class="lfooter">
+            <span class="fslogan" id="fsl1">"De la explicación al valor"</span>
+            <span class="fdot"></span>
+            <span class="fslogan" id="fsl2">"Soluciones integrales en minería"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var IMG_MAP={'PERFORACIONES':'perforaciones','EXPLORACIÓN':'exploracion','GIS':'gis','MEDIO AMBIENTE':'medio_ambiente','INFRAESTRUCTURA':'infraestructura','CONSULTORÍA':'consultoria'};
+var EXTS=['jpg','jpeg','png','webp'];
+
+function q(id){return document.getElementById(id)}
+
+function showTab(name,btn){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  btn.classList.add('active');
+  q('tab-panel').classList.toggle('show',name==='panel');
+  q('tab-preview').classList.toggle('show',name==='preview');
+  if(name==='preview') scaleLetter();
+}
+
+function scaleLetter(){
+  var wrap=q('ltr-wrap');
+  var prev=q('tab-preview');
+  if(!wrap||!prev)return;
+  var avail=Math.max(prev.clientWidth-24,180);
+  var scale=avail/794;
+  var h=Math.ceil(1123*scale);
+  wrap.style.width=avail+'px';
+  wrap.style.height=h+'px';
+  var letter=wrap.querySelector('.letter');
+  if(letter)letter.style.transform='scale('+scale+')';
+}
+
+function setBg(filename){
+  var bg=q('lhdr-bg');
+  if(!filename){bg.style.backgroundImage='none';return}
+  var idx=0;
+  function tryNext(){
+    if(idx>=EXTS.length){bg.style.backgroundImage='none';return}
+    var path='images/'+filename+'.'+EXTS[idx++];
+    var img=new Image();
+    img.onload=function(){bg.style.backgroundImage='url('+path+')'};
+    img.onerror=tryNext;
+    img.src=path;
+  }
+  tryNext();
+}
+
+function applyDiv(){
+  var s=q('sel-div'),cw=q('cwrap');
+  if(s.value==='custom'){cw.style.display='block';setDiv(q('cdiv').value.toUpperCase()||'DIVISIÓN');setBg(null)}
+  else{cw.style.display='none';setDiv(s.value);setBg(IMG_MAP[s.value]||null)}
+}
+function setDiv(v){q('div-name').textContent=v||'DIVISIÓN'}
+
+function updateRef(v){
+  var b=q('lref-block'),r=q('lref-val');
+  v=v.trim();b.style.visibility=v?'visible':'hidden';
+  if(v)r.textContent=v;
+}
+function updateSubject(v){
+  var el=q('lsubj');v=v.trim();
+  if(v){el.textContent='Asunto: '+v;el.style.display='block'}
+  else el.style.display='none';
+}
+
+function doPrint(){
+  var s=document.createElement('style');
+  s.id='force-bg-print';
+  s.textContent='*{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}';
+  document.head.appendChild(s);
+  window.print();
+  setTimeout(function(){var el=document.getElementById('force-bg-print');if(el)el.parentNode.removeChild(el)},1500);
+}
+
+setBg(IMG_MAP['PERFORACIONES']);
+window.addEventListener('resize',scaleLetter);
+setTimeout(scaleLetter,80);
+</script>
