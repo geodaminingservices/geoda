@@ -1,51 +1,36 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hoja Membretada — Geoda</title>
+
 <style>
-html,body{margin:0;padding:0;height:100%;background:#111923;font-family:'Trebuchet MS','Segoe UI',Tahoma,sans-serif;overflow:hidden}
+html{background:#111923}
+body{margin:0;padding:0;background:#111923;font-family:'Trebuchet MS','Segoe UI',Tahoma,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 
 /* ── LAYOUT RAÍZ ── */
-.app{display:flex;flex-direction:column;height:100%;background:#111923;overflow:hidden}
+.app{display:flex;flex-direction:column;background:#111923;height:560px}
 
-/* ── TABS (solo móvil) ── */
-.tabs{display:none;flex-shrink:0;background:#0b1118;border-bottom:1px solid rgba(192,160,98,.22)}
+/* ── TABS (móvil) ── */
+.tabs{display:flex;flex-shrink:0;background:#0b1118;border-bottom:1px solid rgba(192,160,98,.22)}
 .tab{flex:1;padding:12px 0;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;cursor:pointer;color:rgba(255,255,255,.28);border:none;background:none;border-bottom:3px solid transparent;transition:color .15s,border-color .15s}
 .tab.active{color:#c0a062;border-bottom-color:#c0a062}
-@media(max-width:619px){.tabs{display:flex}}
 
 /* ── CUERPO ── */
 .sect{display:flex;flex:1;overflow:hidden;min-height:0}
 
 /* ── PANEL ── */
-.sect-panel{
-  width:264px;min-width:264px;flex-shrink:0;
-  background:#111923;display:flex;flex-direction:column;
-  overflow-y:auto;overflow-x:hidden;
-  scrollbar-width:thin;scrollbar-color:rgba(192,160,98,.2) transparent;
-}
+.sect-panel{width:100%;background:#111923;flex-direction:column;overflow-y:auto;overflow-x:hidden;display:none;scrollbar-width:thin;scrollbar-color:rgba(192,160,98,.2) transparent}
 .sect-panel::-webkit-scrollbar{width:3px}
 .sect-panel::-webkit-scrollbar-thumb{background:rgba(192,160,98,.28);border-radius:2px}
-/* Móvil: ambas secciones ocupan 100% de ancho y se alternan con tabs */
-@media(max-width:619px){
-  .sect-panel{width:100%;min-width:0;display:none}
-  .sect-panel.show{display:flex}
-}
+.sect-panel.show{display:flex}
 
 /* ── PREVIEW ── */
-.sect-preview{
-  flex:1;background:#1e2630;
-  overflow:auto;display:flex;
-  align-items:flex-start;justify-content:center;
-  padding:16px;
-  -webkit-overflow-scrolling:touch;
-}
-@media(max-width:619px){
-  .sect-preview{display:none;padding:12px 8px}
-  .sect-preview.show{display:flex}
+.sect-preview{flex:1;background:#1e2630;overflow:auto;display:none;-webkit-overflow-scrolling:touch}
+.sect-preview.show{display:flex;align-items:flex-start;justify-content:center;padding:14px}
+
+/* ── DESKTOP ── */
+@media(min-width:620px){
+  .app{height:580px}
+  .tabs{display:none}
+  .sect-panel{display:flex!important;width:264px;min-width:264px;flex-shrink:0}
+  .sect-preview{display:flex!important}
 }
 
 /* ── PANEL INTERIOR ── */
@@ -53,57 +38,27 @@ html,body{margin:0;padding:0;height:100%;background:#111923;font-family:'Trebuch
 .ph-t{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c0a062;font-weight:700}
 .ph-s{font-size:9px;color:rgba(255,255,255,.25);margin-top:2px}
 
-.sec{padding:10px 16px 6px;border-bottom:1px solid rgba(255,255,255,.04);flex-shrink:0}
+.sec{padding:10px 16px 5px;border-bottom:1px solid rgba(255,255,255,.04);flex-shrink:0}
 .slbl{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(192,160,98,.55);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .slbl::after{content:'';flex:1;height:1px;background:rgba(192,160,98,.14)}
 
 .f{margin-bottom:7px}
 .f label{display:block;font-size:10px;color:rgba(255,255,255,.32);margin-bottom:3px}
-.f input,.f select,.f textarea{
-  width:100%;background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.09);border-radius:4px;
-  padding:7px 9px;font-size:12px;color:rgba(255,255,255,.8);
-  font-family:inherit;outline:none;
-  transition:border .18s,background .18s;
-  -webkit-appearance:none;appearance:none;
-}
+.f input,.f select,.f textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:4px;padding:7px 9px;font-size:12px;color:rgba(255,255,255,.8);font-family:inherit;outline:none;transition:border .18s,background .18s;-webkit-appearance:none}
 .f input:focus,.f select:focus,.f textarea:focus{border-color:rgba(192,160,98,.7);background:rgba(255,255,255,.08)}
-.f select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(192,160,98,.6)'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 9px center;padding-right:28px;
-}
+.f select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(192,160,98,.6)'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;padding-right:26px}
 .f select option{background:#111923;color:#ccc}
 .f textarea{resize:vertical;min-height:70px;line-height:1.5}
 
 .pfoot{padding:10px 16px 14px;background:#0b1118;border-top:1px solid rgba(192,160,98,.12);flex-shrink:0;margin-top:auto}
-.btn-print{
-  width:100%;padding:11px;background:#c0a062;color:#0b1118;
-  border:none;border-radius:5px;font-size:10px;font-weight:800;
-  letter-spacing:2px;text-transform:uppercase;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;transition:background .2s;
-}
+.btn-print{width:100%;padding:11px;background:#c0a062;color:#0b1118;border:none;border-radius:5px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;-webkit-tap-highlight-color:transparent;transition:background .2s}
 .btn-print:active{background:#b8944f}
 @media(hover:hover){.btn-print:hover{background:#d4b878}}
 
-/* ════════════════════════════════════
-   CARTA A4
-   - Sin min-height en preview (se ve el espacio blanco)
-   - min-height:297mm SOLO en impresión
-   ════════════════════════════════════ */
+/* ── CARTA A4 ── */
 #ltr-wrap{position:relative;flex-shrink:0}
+.letter{width:794px;min-height:1123px;background:#fff;transform-origin:top left;display:flex;flex-direction:column;box-shadow:0 6px 30px rgba(0,0,0,.6);print-color-adjust:exact;-webkit-print-color-adjust:exact}
 
-.letter{
-  width:794px;
-  /* SIN min-height: la carta tiene el alto de su contenido en pantalla */
-  background:#fff;
-  transform-origin:top left;
-  display:flex;flex-direction:column;
-  box-shadow:0 6px 30px rgba(0,0,0,.6);
-  print-color-adjust:exact;-webkit-print-color-adjust:exact;
-}
-
-/* ── ENCABEZADO ── */
 .lhdr{position:relative;height:268px;overflow:hidden;flex-shrink:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}
 .lhdr-bg{position:absolute;inset:0;background:#1a3a52 center/cover no-repeat;print-color-adjust:exact;-webkit-print-color-adjust:exact}
 .lhdr-ov{position:absolute;inset:0;background:linear-gradient(130deg,rgba(10,18,30,.9) 0%,rgba(10,18,30,.38) 55%,rgba(7,15,26,.82) 100%);print-color-adjust:exact;-webkit-print-color-adjust:exact}
@@ -129,8 +84,7 @@ html,body{margin:0;padding:0;height:100%;background:#111923;font-family:'Trebuch
   print-color-adjust:exact;-webkit-print-color-adjust:exact;
 }
 
-/* ── CUERPO ── */
-.lbody{padding:38px 52px 32px}
+.lbody{flex:1;padding:38px 52px 22px}
 .lmeta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:9px}
 .lref{font-size:10.5px;color:#aaa;line-height:1.7}
 .lref em{display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:1.5px;color:#bbb;font-style:normal;margin-bottom:1px}
@@ -144,67 +98,43 @@ html,body{margin:0;padding:0;height:100%;background:#111923;font-family:'Trebuch
 .lsubj{font-size:12.5px;font-weight:700;color:#1a2535;margin-bottom:16px;font-family:Georgia,serif;padding:10px 16px;border-left:3px solid #c0a062;background:#fdf8f2;display:none;print-color-adjust:exact;-webkit-print-color-adjust:exact}
 .ltext{font-size:12.5px;line-height:2.05;color:#2c3e50;text-align:justify;white-space:pre-wrap;word-break:break-word;font-family:Georgia,'Palatino Linotype',serif}
 
-.lsign{margin-top:48px;padding-bottom:36px}
-.sign-sal{font-size:12px;color:#2c3e50;font-family:Georgia,serif;font-style:italic;margin-bottom:42px}
+.lsign{margin-top:46px}
+.sign-sal{font-size:12px;color:#2c3e50;font-family:Georgia,serif;font-style:italic;margin-bottom:40px}
 .sign-line{width:185px;height:1px;background:#bbb;margin-bottom:9px}
-.sname{font-size:13px;font-weight:700;color:#1a2535;font-family:Georgia,serif;display:block;min-height:15px}
-.srole{font-size:11px;color:#666;display:block;margin-top:3px;min-height:13px}
+.sname{font-size:13px;font-weight:700;color:#1a2535;font-family:Georgia,serif;display:block;min-height:16px}
+.srole{font-size:11px;color:#666;display:block;margin-top:3px;min-height:14px}
 .sco{font-size:9.5px;color:#c0a062;display:block;margin-top:3px;letter-spacing:1.5px;text-transform:uppercase;min-height:12px}
 
-/* ── PIE — sin margin-top:auto (evita empujar al fondo del A4 vacío) ── */
-.lfooter{
-  background:#f9f6f0;border-top:2px solid #ede0c4;
-  padding:14px 52px 18px;
-  display:flex;align-items:center;justify-content:center;gap:16px;
-  flex-shrink:0;
-  print-color-adjust:exact;-webkit-print-color-adjust:exact;
-}
+.lfooter{margin-top:auto;background:#f9f6f0;border-top:2px solid #ede0c4;padding:14px 52px 18px;display:flex;align-items:center;justify-content:center;gap:16px;flex-shrink:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}
 .fdot{width:5px;height:5px;border-radius:50%;background:#c0a062;flex-shrink:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}
 .fslogan{font-style:italic;font-size:11px;color:#c0a062;font-family:Georgia,serif;letter-spacing:.5px}
 
-/* ── IMPRESIÓN ── */
 @media print{
   @page{size:A4;margin:0}
   html,body{height:auto!important;overflow:visible!important;background:none!important}
   .app,.sect{display:block!important;height:auto!important;overflow:visible!important}
   .tabs,.sect-panel{display:none!important}
-  .sect-preview{
-    display:block!important;background:none!important;
-    padding:0!important;overflow:visible!important;height:auto!important;
-  }
+  .sect-preview{display:block!important;background:none!important;padding:0!important;overflow:visible!important;height:auto!important}
   #ltr-wrap{width:100%!important;height:auto!important;position:static!important}
-  .letter{
-    transform:none!important;
-    width:210mm!important;
-    min-height:297mm!important; /* A4 completo SOLO al imprimir */
-    box-shadow:none!important;
-    position:static!important;
-    display:flex!important;
-    flex-direction:column!important;
-  }
-  .lbody{flex:1!important} /* rellena el espacio al imprimir */
-  .lfooter{margin-top:auto!important} /* pie al fondo del A4 al imprimir */
+  .letter{transform:none!important;width:210mm!important;min-height:297mm!important;box-shadow:none!important;position:static!important}
   .div-name{-webkit-text-fill-color:transparent!important}
   *{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
 }
 </style>
-</head>
-<body>
 
 <div class="app" id="app">
   <div class="tabs">
-    <button class="tab active" onclick="showTab('panel',this)">✏ Editar</button>
-    <button class="tab" onclick="showTab('preview',this)">◻ Vista previa</button>
+    <button class="tab active" id="tab-btn-panel" onclick="showTab('panel',this)">✏&#xFE0E; Editar</button>
+    <button class="tab" id="tab-btn-preview" onclick="showTab('preview',this)">⊞ Vista previa</button>
   </div>
   <div class="sect">
 
-    <!-- ── PANEL ── -->
+    <!-- PANEL -->
     <div class="sect-panel show" id="tab-panel">
       <div class="ph">
         <div class="ph-t">Geoda — Carta Corporativa</div>
         <div class="ph-s">Editor de hoja membretada</div>
       </div>
-
       <div class="sec">
         <div class="slbl">Documento</div>
         <div class="f"><label>División</label>
@@ -218,8 +148,7 @@ html,body{margin:0;padding:0;height:100%;background:#111923;font-family:'Trebuch
             <option value="custom">Otra división...</option>
           </select>
         </div>
-        <div class="f" id="cwrap" style="display:none">
-          <label>Nombre personalizado</label>
+        <div class="f" id="cwrap" style="display:none"><label>Nombre personalizado</label>
           <input type="text" id="cdiv" placeholder="Ej: OPERACIONES" oninput="setDiv(this.value.toUpperCase())">
         </div>
         <div class="f"><label>Ref. / Expediente (opcional)</label>
@@ -229,7 +158,6 @@ html,body{margin:0;padding:0;height:100%;background:#111923;font-family:'Trebuch
           <input type="text" value="Mendoza, 2 de mayo de 2026" oninput="q('ldate').textContent=this.value">
         </div>
       </div>
-
       <div class="sec">
         <div class="slbl">Destinatario</div>
         <div class="f"><label>Nombre / Empresa</label>
@@ -239,7 +167,6 @@ html,body{margin:0;padding:0;height:100%;background:#111923;font-family:'Trebuch
           <input type="text" value="Presente" oninput="q('rsub').textContent=this.value">
         </div>
       </div>
-
       <div class="sec">
         <div class="slbl">Contenido</div>
         <div class="f"><label>Asunto (opcional)</label>
@@ -253,7 +180,6 @@ Este documento sirve como plantilla oficial para nuestras comunicaciones corpora
 Sin otro particular, y quedando a su entera disposición para cualquier consulta o requerimiento adicional, le saludamos atentamente.</textarea>
         </div>
       </div>
-
       <div class="sec">
         <div class="slbl">Firma</div>
         <div class="f"><label>Nombre</label>
@@ -266,7 +192,6 @@ Sin otro particular, y quedando a su entera disposición para cualquier consulta
           <input type="text" placeholder="Ej: Geoda División Perforaciones" oninput="q('sco').textContent=this.value">
         </div>
       </div>
-
       <div class="sec">
         <div class="slbl">Pie de página</div>
         <div class="f"><label>Eslogan 1</label>
@@ -276,16 +201,15 @@ Sin otro particular, y quedando a su entera disposición para cualquier consulta
           <input type="text" value='"Soluciones integrales en minería"' oninput="q('fsl2').textContent=this.value">
         </div>
       </div>
-
       <div class="pfoot">
         <button class="btn-print" onclick="doPrint()">⎙ &nbsp;Imprimir / Guardar PDF</button>
       </div>
     </div>
 
-    <!-- ── PREVIEW ── -->
+    <!-- PREVIEW -->
     <div class="sect-preview" id="tab-preview">
       <div id="ltr-wrap">
-        <div class="letter" id="letter">
+        <div class="letter">
           <div class="lhdr">
             <div class="lhdr-bg" id="lhdr-bg"></div>
             <div class="lhdr-ov"></div>
@@ -306,7 +230,6 @@ Sin otro particular, y quedando a su entera disposición para cualquier consulta
               <div class="div-name" id="div-name">PERFORACIONES</div>
             </div>
           </div>
-
           <div class="lbody">
             <div class="lmeta">
               <div class="lref" id="lref-block" style="visibility:hidden">
@@ -334,7 +257,6 @@ Sin otro particular, y quedando a su entera disposición para cualquier consulta
               <span class="sco" id="sco"></span>
             </div>
           </div>
-
           <div class="lfooter">
             <span class="fslogan" id="fsl1">"De la explicación al valor"</span>
             <span class="fdot"></span>
@@ -350,12 +272,9 @@ Sin otro particular, y quedando a su entera disposición para cualquier consulta
 <script>
 (function(){
   var IMG_MAP={
-    'PERFORACIONES':'perforaciones',
-    'EXPLORACIÓN':'exploracion',
-    'GIS':'gis',
-    'MEDIO AMBIENTE':'medio_ambiente',
-    'INFRAESTRUCTURA':'infraestructura',
-    'CONSULTORÍA':'consultoria'
+    'PERFORACIONES':'perforaciones','EXPLORACIÓN':'exploracion',
+    'GIS':'gis','MEDIO AMBIENTE':'medio_ambiente',
+    'INFRAESTRUCTURA':'infraestructura','CONSULTORÍA':'consultoria'
   };
   var EXTS=['jpg','jpeg','png','webp'];
   var pendingToken=null;
@@ -363,32 +282,32 @@ Sin otro particular, y quedando a su entera disposición para cualquier consulta
   function q(id){return document.getElementById(id)}
   window.q=q;
 
-  /* ── ESCALA — mide alto real del contenido, no 1123px fijo ── */
+  /* ── ESCALA DINÁMICA ── */
   function scaleLetter(){
     var wrap=q('ltr-wrap');
     var prev=q('tab-preview');
-    var letter=q('letter');
-    if(!wrap||!prev||!letter) return;
-
+    if(!wrap||!prev) return;
     var aw=prev.clientWidth||320;
+    var ah=prev.clientHeight||400;
     var isNarrow=aw<620;
-    var maxScale=isNarrow?0.78:0.44;
-    var scale=Math.min((aw-24)/794, maxScale);
-
-    /* 1) Aplicar transform */
-    letter.style.transform='scale('+scale+')';
-    letter.style.transformOrigin='top left';
-
-    /* 2) Medir alto real DESPUÉS del paint para evitar valor incorrecto */
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        var naturalH=letter.offsetHeight;
-        var sw=Math.round(794*scale);
-        var sh=Math.round(naturalH*scale);
-        wrap.style.width=sw+'px';
-        wrap.style.height=sh+'px';
-      });
-    });
+    // Ajuste por ancho Y alto disponible para evitar overflow
+    var scaleW=isNarrow?(aw-20)/794:(aw-28)/794;
+    var scaleH=(ah-28)/1123;
+    var scale=isNarrow
+      ? Math.min(scaleW, 0.75)           // móvil: legible, scroll vertical
+      : Math.min(scaleW, scaleH, 0.46);  // desktop: entra sin overflow
+    var sw=Math.round(794*scale);
+    var sh=Math.round(1123*scale);
+    wrap.style.width=sw+'px';
+    wrap.style.height=sh+'px';
+    var letter=wrap.querySelector('.letter');
+    if(letter) letter.style.transform='scale('+scale+')';
+    // centrar horizontalmente en móvil si más angosto que contenedor
+    if(isNarrow && sw<aw){
+      wrap.style.marginLeft=Math.round((aw-sw)/2)+'px';
+    } else {
+      wrap.style.marginLeft='0';
+    }
   }
 
   /* ── TABS ── */
@@ -400,10 +319,10 @@ Sin otro particular, y quedando a su entera disposición para cualquier consulta
     if(name==='preview') setTimeout(scaleLetter,30);
   };
 
-  /* ── IMAGEN FONDO (con token para cancelar cargas anteriores) ── */
+  /* ── IMAGEN FONDO ── */
   function setBg(filename){
     var bg=q('lhdr-bg'); if(!bg) return;
-    var token={}; pendingToken=token;
+    var token={active:true}; pendingToken=token;
     if(!filename){bg.style.backgroundImage='none';return}
     var idx=0;
     function tryNext(){
@@ -434,55 +353,40 @@ Sin otro particular, y quedando a su entera disposición para cualquier consulta
   };
   window.setDiv=function(v){var el=q('div-name');if(el)el.textContent=v||'DIVISIÓN'};
 
-  /* ── REFERENCIA ── */
   window.updateRef=function(v){
     var b=q('lref-block'),r=q('lref-val'); if(!b||!r) return;
     v=(v||'').trim();
     b.style.visibility=v?'visible':'hidden';
-    if(v) r.textContent=v;
+    if(v)r.textContent=v;
   };
-
-  /* ── ASUNTO ── */
   window.updateSubject=function(v){
     var el=q('lsubj'); if(!el) return;
     v=(v||'').trim();
     if(v){el.textContent='Asunto: '+v;el.style.display='block'}
     else el.style.display='none';
-    /* Recalcular alto tras cambio de contenido */
-    requestAnimationFrame(scaleLetter);
   };
 
-  /* ── IMPRIMIR (fuerza fondos) ── */
+  /* ── IMPRIMIR ── */
   window.doPrint=function(){
     var id='_fbp',old=document.getElementById(id);
-    if(old&&old.parentNode) old.parentNode.removeChild(old);
+    if(old&&old.parentNode)old.parentNode.removeChild(old);
     var s=document.createElement('style');
     s.id=id;
     s.textContent='*{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}';
     document.head.appendChild(s);
     window.print();
-    setTimeout(function(){
-      var el=document.getElementById(id);
-      if(el&&el.parentNode) el.parentNode.removeChild(el);
-    },2000);
+    setTimeout(function(){var el=document.getElementById(id);if(el&&el.parentNode)el.parentNode.removeChild(el)},2000);
   };
 
-  /* ── RESIZE OBSERVER (más confiable que resize event) ── */
+  /* ── RESIZE ── */
   var prev=q('tab-preview');
   if(prev&&window.ResizeObserver){
     new ResizeObserver(scaleLetter).observe(prev);
-  } else {
-    window.addEventListener('resize',scaleLetter);
   }
+  window.addEventListener('resize',scaleLetter);
 
   /* ── INIT ── */
   setBg(IMG_MAP['PERFORACIONES']);
-  requestAnimationFrame(function(){
-    requestAnimationFrame(scaleLetter);
-  });
-
+  setTimeout(scaleLetter,80);
 })();
 </script>
-
-</body>
-</html>
