@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geoda — Servicios Integrales para la Minería</title>
+    <meta name="description" content="Consultoría especializada en exploración minera. Perforación, GIS, espectrometría, infraestructura y medio ambiente. Mendoza y San Juan, Argentina.">
+    <meta name="keywords" content="consultoría minera, exploración minera, perforación, GIS minería, Mendoza, San Juan, Argentina Mining">
+    <meta name="author" content="Geoda">
+    <link rel="icon" type="image/png" href="images/logo-only.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Geoda — Servicios Integrales para la Minería">
+    <meta property="og:description" content="Consultoría especializada en exploración minera. Mendoza y San Juan, Argentina.">
+    <meta property="og:image" content="images/logo-texto.png">
+    <meta property="og:locale" content="es_AR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Geoda — Servicios Integrales para la Minería">
+    <meta name="twitter:image" content="images/logo-texto.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="images/header-background.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+/* ══ RESET ════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+html,body{width:100%;overflow-x:hidden;}
+
+/* ══ SCROLLBAR ════════════════════════════════════════ */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#0c1117;}
+::-webkit-scrollbar-thumb{background:rgba(184,149,80,0.45);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(184,149,80,0.75);}
+*{scrollbar-width:thin;scrollbar-color:rgba(184,149,80,0.45) #0c1117;}
+
+/* ══ TOKENS ═══════════════════════════════════════════ */
+:root{
+    --carbon:   #0c1117;
+    --carbon-2: #131a22;
+    --carbon-3: #1a2330;
+    --gold:     #b89550;
+    --gold-l:   #cead6e;
+    --gold-pale:#e4d5aa;
+    --offwhite: #f5f2eb;
+    --white:    #ffffff;
+    --t-dark:   #18202a;
+    --t-soft:   #607080;
+    --border:   rgba(184,149,80,0.15);
+    --border-m: rgba(184,149,80,0.30);
+    --nav-h:    60px;
+    --r:        2px;
+    --ease:     cubic-bezier(0.22,1,0.36,1);
+    --ease-in:  cubic-bezier(0.4,0,1,1);
+    --ff-d:     'Cormorant Garamond',Georgia,serif;
+    --ff-c:     'Barlow Condensed',sans-serif;
+    --ff-b:     'Barlow',sans-serif;
+}
+
+/* ══ BASE — fade-in de página ══════════════════════════ */
+body{
+    font-family:var(--ff-b);color:var(--t-dark);background:var(--white);
+    line-height:1.65;user-select:none;-webkit-user-select:none;
+    opacity:0;animation:pageIn 0.45s ease 0.05s forwards;
+}
+@keyframes pageIn{to{opacity:1;}}
+
+/* ══ NAV ══════════════════════════════════════════════ */
+nav{
+    position:fixed;inset:0 0 auto 0;height:var(--nav-h);
+    background:rgba(12,17,23,0.96);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    z-index:9000;display:flex;align-items:center;justify-content:center;
+    border-bottom:1px solid var(--border);
+}
+nav::after{
+    content:'';position:absolute;bottom:0;left:-60%;
+    width:60%;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(184,149,80,0.55),transparent);
+    animation:navShimmer 4s ease-in-out infinite;
+}
+@keyframes navShimmer{0%{left:-60%}100%{left:160%}}
+nav ul{list-style:none;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;}
+nav a{
+    font-family:var(--ff-c);font-weight:500;font-size:0.8rem;
+    letter-spacing:2px;text-transform:uppercase;
+    color:rgba(255,255,255,0.5);text-decoration:none;
+    padding:0.5rem 1rem;display:block;position:relative;
+    transition:color 0.25s var(--ease);white-space:nowrap;
+}
+nav a::after{
+    content:'';position:absolute;bottom:0;left:1rem;right:1rem;
+    height:1px;background:var(--gold);
+    transform:scaleX(0);transform-origin:center;
+    transition:transform 0.3s var(--ease);
+}
+nav a:hover{color:rgba(255,255,255,0.88);}
+nav a:hover::after,nav a.active::after{transform:scaleX(1);}
+nav a.active{color:var(--gold);}
+
+/* ══ CONTAINER ════════════════════════════════════════ */
+.container{max-width:1160px;margin:0 auto;padding:0 2rem;width:100%;}
+
+/* ══ HERO — fluye hacia carbón, sin corte ══════════════ */
+.hero{
+    min-height:100svh;
+    background:
+        linear-gradient(180deg,
+            rgba(12,17,23,0.35) 0%,
+            rgba(12,17,23,0.70) 65%,
+            rgba(12,17,23,0.96) 90%,
+            var(--carbon) 100%),
+        url('images/header-background.png') center 50%/cover no-repeat;
+    display:flex;flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    text-align:center;
+    padding:calc(var(--nav-h) + 14vh) 2rem 0;
+    position:relative;overflow:hidden;
+}
+.hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+.particle{position:absolute;border-radius:50%;opacity:0;animation:partFloat linear infinite;}
+@keyframes partFloat{
+    0%  {opacity:0;transform:translateY(0) scale(0.5);}
+    10% {opacity:0.45;}
+    90% {opacity:0.15;}
+    100%{opacity:0;transform:translateY(-90px) scale(1);}
+}
+.hero-block{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
+
+/* Logo — colores originales, más grande, latido dorado visible con profundidad */
+.hero-logo{animation:fadeUp 0.95s var(--ease) 0.1s both;}
+.hero-logo img{
+    height:clamp(140px,22vw,220px);
+    width:auto;display:block;
+    /* Sombra de profundidad permanente — multicapa */
+    filter:
+        drop-shadow(0 2px 4px rgba(0,0,0,0.8))
+        drop-shadow(0 8px 20px rgba(0,0,0,0.6))
+        drop-shadow(0 20px 40px rgba(0,0,0,0.35));
+    opacity:1;
+    margin-bottom:1.6rem;
+    animation:logoPulse 9s ease-in-out 3s infinite;
+    transform-origin:center bottom;
+}
+@keyframes logoPulse{
+    0%,38%,62%,100%{
+        transform:scale(1);
+        filter:
+            drop-shadow(0 2px 4px rgba(0,0,0,0.8))
+            drop-shadow(0 8px 20px rgba(0,0,0,0.6))
+            drop-shadow(0 20px 40px rgba(0,0,0,0.35));
+    }
+    50%{
+        transform:scale(1.045);
+        filter:
+            drop-shadow(0 2px 4px rgba(0,0,0,0.8))
+            drop-shadow(0 8px 20px rgba(0,0,0,0.6))
+            drop-shadow(0 20px 40px rgba(0,0,0,0.35))
+            drop-shadow(0 0 16px rgba(184,149,80,0.55))
+            drop-shadow(0 0 36px rgba(184,149,80,0.22));
+    }
+}
+.hero-eyebrow{
+    font-family:var(--ff-c);font-size:0.7rem;font-weight:500;
+    letter-spacing:3.5px;text-transform:uppercase;
+    color:var(--gold);margin-bottom:0.85rem;
+    animation:fadeUp 0.8s var(--ease) 0.4s both, eyebrowPulse 9s ease-in-out 3s infinite;
+}
+@keyframes eyebrowPulse{
+    0%,38%,62%,100%{opacity:1;}
+    50%{opacity:0.7;}
+}
+.hero h1{
+    font-family:var(--ff-d);
+    font-size:clamp(2.6rem,6vw,5.4rem);
+    font-weight:300;color:var(--white);
+    line-height:1.05;letter-spacing:-0.5px;
+    margin-bottom:0.9rem;
+    animation:fadeUp 0.8s var(--ease) 0.6s both;
+}
+.hero h1 em{font-style:italic;color:var(--gold-l);}
+.hero-sub{
+    font-family:var(--ff-c);font-size:0.95rem;font-weight:300;
+    letter-spacing:2.5px;color:rgba(255,255,255,0.5);
+    animation:fadeUp 0.8s var(--ease) 0.78s both;
+}
+.hero-scroll{display:none;}
+
+/* ══ SECCIÓN BASE ══════════════════════════════════════ */
+section{scroll-margin-top:var(--nav-h);}
+.sec{padding:clamp(3.5rem,7vh,6rem) 0;}
+.sec-dark{background:var(--carbon);}
+
+/* ══ EYEBROW + TÍTULOS ═════════════════════════════════ */
+.eyebrow{font-family:var(--ff-c);font-size:0.66rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.6rem;}
+.sec-title{font-family:var(--ff-d);font-size:clamp(1.9rem,4vw,3rem);font-weight:300;color:var(--t-dark);line-height:1.1;}
+.sec-title em{font-style:italic;color:var(--gold);}
+.sec-title-w{color:var(--white);}
+.rule{width:38px;height:2px;background:var(--gold);margin-top:1.2rem;}
+.rule-c{margin-left:auto;margin-right:auto;}
+.sec-hd{margin-bottom:clamp(1.8rem,4vh,3rem);}
+.sec-hd-c{text-align:center;}
+
+/* ══ SERVICIOS — mundo oscuro continuo con hero ════════ */
+#servicios{
+    background:var(--carbon);
+    padding:clamp(3rem,6vh,5rem) 0 clamp(3rem,6vh,5rem);
+    /* sin margin-top negativo — flujo natural desde el carbón del hero */
+}
+/* Título en blanco sobre carbón */
+#servicios .sec-title{color:var(--white);}
+.services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:3px;
+    background:var(--carbon-3);  /* gap oscuro entre tarjetas */
+}
+/* Tarjeta: foto PREVIEW (sin número) */
+.service-card{
+    position:relative;height:280px;overflow:hidden;
+    cursor:pointer;
+    opacity:0;transform:translateY(18px);
+    transition:opacity 0.6s var(--ease),transform 0.6s var(--ease);
+}
+.service-card.v{opacity:1;transform:none;}
+.service-card-image{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform 0.65s var(--ease),filter 0.4s ease;
+    filter:brightness(0.9);
+}
+.service-card:hover .service-card-image{transform:scale(1.07);filter:brightness(1);}
+.svc-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom,
+        rgba(12,17,23,0.08) 0%,
+        rgba(12,17,23,0.5) 50%,
+        rgba(12,17,23,0.9) 100%);
+    display:flex;flex-direction:column;justify-content:flex-end;padding:1.4rem 1.6rem;
+    transition:background 0.4s ease;
+}
+.service-card:hover .svc-overlay{
+    background:linear-gradient(to bottom,
+        rgba(12,17,23,0.18) 0%,
+        rgba(12,17,23,0.62) 48%,
+        rgba(12,17,23,0.97) 100%);
+}
+.svc-overlay-icon{
+    width:30px;height:30px;border:1px solid rgba(184,149,80,0.45);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:var(--gold);margin-bottom:0.55rem;
+    transition:background 0.3s ease,border-color 0.3s ease,transform 0.3s var(--ease);
+    flex-shrink:0;
+}
+.service-card:hover .svc-overlay-icon{
+    background:rgba(184,149,80,0.18);border-color:var(--gold);
+    transform:scale(1.1);
+}
+.svc-overlay h3{
+    font-family:var(--ff-d);font-size:clamp(1rem,1.4vw,1.22rem);
+    font-weight:500;color:var(--white);line-height:1.2;margin-bottom:0.7rem;
+    transition:color 0.25s ease,transform 0.3s var(--ease);
+    transform:translateY(2px);
+}
+.service-card:hover .svc-overlay h3{color:var(--gold-l);transform:translateY(0);}
+.svc-btn{
+    display:inline-flex;align-items:center;gap:0.4rem;
+    padding:0.35rem 0.85rem;background:transparent;
+    border:1px solid rgba(184,149,80,0.5);color:rgba(184,149,80,0.82);
+    font-family:var(--ff-c);font-size:0.7rem;font-weight:600;
+    letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;
+    transition:background 0.25s ease,border-color 0.25s ease,color 0.25s ease,transform 0.25s var(--ease);
+    align-self:flex-start;border-radius:var(--r);
+    opacity:0;transform:translateY(6px);
+}
+/* Botón aparece solo cuando hay hover en la tarjeta */
+.service-card:hover .svc-btn{opacity:1;transform:translateY(0);}
+.svc-btn:hover,.svc-btn.open{background:var(--gold);border-color:var(--gold);color:var(--carbon);}
+.arr{display:inline-block;transition:transform 0.25s var(--ease);font-size:1rem;line-height:1;}
+.svc-btn.open .arr{transform:rotate(45deg);}
+
+/* Panel detalle — foto CON número */
+.svc-panel{
+    display:none;
+    grid-column:1/-1;
+    background:var(--carbon-2);
+    border-top:1px solid var(--border);
+}
+.svc-panel.active{
+    display:block;
+    animation:panelSlide 0.4s var(--ease);
+}
+@keyframes panelSlide{
+    from{opacity:0;transform:translateY(-10px);}
+    to{opacity:1;transform:none;}
+}
+.panel-in{padding:clamp(1.5rem,3vw,2.5rem) clamp(1.2rem,3vw,2.8rem);}
+.panel-hd{display:flex;gap:2rem;margin-bottom:1.6rem;padding-bottom:1.6rem;border-bottom:1px solid var(--border);}
+.panel-hd-img{
+    width:220px;height:148px;object-fit:cover;
+    border-radius:var(--r);flex-shrink:0;
+    transition:transform 0.5s var(--ease);
+}
+.panel-hd-img:hover{transform:scale(1.02);}
+.panel-hd-txt h3{font-family:var(--ff-d);font-size:1.62rem;font-weight:400;color:var(--gold-l);margin-bottom:0.6rem;line-height:1.15;}
+.panel-hd-txt p{font-size:0.88rem;color:rgba(200,215,225,0.7);line-height:1.8;}
+.panel-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;}
+.panel-col h4{
+    font-family:var(--ff-c);font-size:0.66rem;font-weight:600;
+    letter-spacing:2px;text-transform:uppercase;color:var(--gold);
+    margin-bottom:0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border);
+}
+.panel-col ul{list-style:none;}
+.panel-col li{
+    font-size:0.84rem;color:rgba(185,205,218,0.82);
+    padding:0.35rem 0 0.35rem 1rem;position:relative;line-height:1.5;
+}
+.panel-col li::before{content:'';position:absolute;left:0;top:0.76rem;width:3px;height:3px;background:var(--gold);border-radius:50%;}
+.panel-team{display:flex;flex-direction:column;gap:0.55rem;}
+.ptcard{
+    display:flex;align-items:center;gap:0.7rem;
+    background:rgba(255,255,255,0.03);border:1px solid var(--border);
+    padding:0.5rem 0.7rem;border-radius:var(--r);
+    transition:background 0.2s ease,border-color 0.2s ease;
+}
+.ptcard:hover{background:rgba(184,149,80,0.06);border-color:var(--border-m);}
+.ptcard img{
+    width:36px;height:36px;border-radius:50%;
+    object-fit:cover;object-position:center top;
+    border:1.5px solid var(--gold);flex-shrink:0;
+    transition:transform 0.25s var(--ease);
+}
+.ptcard:hover img{transform:scale(1.08);}
+.ptcard strong{display:block;font-size:0.8rem;color:#ddd5c5;font-weight:500;}
+.ptcard span{font-size:0.7rem;color:rgba(130,160,175,0.8);}
+.panel-cta{
+    margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.panel-cta p{font-size:0.86rem;color:rgba(130,160,175,0.7);}
+.panel-cta-btn{
+    display:inline-flex;align-items:center;gap:0.45rem;
+    padding:0.6rem 1.4rem;background:var(--gold);color:var(--carbon);
+    font-family:var(--ff-c);font-size:0.76rem;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:pointer;
+    text-decoration:none;transition:background 0.25s ease,transform 0.2s var(--ease);
+    white-space:nowrap;border-radius:var(--r);user-select:text;-webkit-user-select:text;
+}
+.panel-cta-btn:hover{background:var(--gold-l);transform:translateY(-1px);}
+
+/* ══ STATS — integrado en el mundo oscuro, separador elegante ═ */
+.stats-strip{
+    background:var(--carbon);
+    padding:3rem 0;
+    position:relative;
+}
+/* Separador dorado central entre servicios y stats */
+.stats-strip::before{
+    content:'';
+    position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:40%;height:1px;
+    background:linear-gradient(90deg,
+        transparent 0%,
+        rgba(184,149,80,0.4) 30%,
+        rgba(184,149,80,0.4) 70%,
+        transparent 100%);
+}
+/* Separador inferior hacia nosotros */
+.stats-strip::after{
+    content:'';
+    position:absolute;bottom:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,
+        transparent 0%,
+        rgba(184,149,80,0.2) 20%,
+        rgba(184,149,80,0.35) 50%,
+        rgba(184,149,80,0.2) 80%,
+        transparent 100%);
+}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{
+    text-align:center;padding:0.6rem 1rem;border-right:1px solid var(--border);
+    opacity:0;transform:translateY(14px);
+    transition:opacity 0.55s ease,transform 0.55s var(--ease);
+}
+.stat-item:last-child{border-right:none;}
+.stat-item.v{opacity:1;transform:none;}
+.stat-number{font-family:var(--ff-d);font-size:clamp(2.2rem,4vw,3rem);font-weight:300;color:var(--gold);line-height:1;display:block;transition:text-shadow 0.5s ease;}
+.stat-item.glow .stat-number{text-shadow:0 0 22px rgba(184,149,80,0.65);}
+.stat-unit{font-size:1.4rem;color:var(--gold);font-family:var(--ff-d);font-weight:300;}
+.stat-label{font-family:var(--ff-c);font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.4rem;display:block;}
+
+/* ══ NOSOTROS — offwhite para máximo contraste con el oscuro ══ */
+#nosotros{scroll-margin-top:var(--nav-h);background:var(--offwhite);}
+.mv-wrap{display:grid;grid-template-columns:1fr 1fr;}
+.mv-block{
+    padding:clamp(2.8rem,5vw,4.5rem) clamp(2rem,4vw,3.8rem);
+    border-top:2px solid var(--gold);
+    opacity:0;
+    transition:opacity 0.65s var(--ease),transform 0.65s var(--ease);
+}
+.mv-block:first-child{
+    background:var(--carbon-2);
+    border-right:1px solid var(--border);
+    transform:translateX(-18px);
+}
+.mv-block:last-child{
+    background:var(--carbon-3);
+    transform:translateX(18px);
+}
+.mv-block.v{opacity:1;transform:none;}
+.mv-tag{
+    font-family:var(--ff-c);font-size:0.63rem;font-weight:600;
+    letter-spacing:3px;text-transform:uppercase;
+    color:var(--gold);display:block;margin-bottom:1.2rem;
+}
+.mv-block h3{
+    font-family:var(--ff-d);
+    font-size:clamp(1.5rem,2.8vw,2.4rem);
+    font-weight:300;color:var(--white);line-height:1.1;margin-bottom:1.2rem;
+}
+.mv-block h3 em{font-style:italic;color:var(--gold-l);}
+.mv-rule{width:30px;height:1px;background:var(--gold);margin:1.2rem 0;opacity:0.45;}
+.mv-block p{font-size:0.87rem;color:rgba(255,255,255,0.45);line-height:1.9;}
+
+/* Separador isotipo mejorado */
+.mv-sep{
+    background:var(--carbon);
+    display:flex;align-items:center;justify-content:center;
+    padding:2.2rem 0;
+    border-top:1px solid var(--border);
+    gap:0;
+}
+.sep-line{
+    flex:1;height:1px;
+    background:linear-gradient(to right,transparent,rgba(184,149,80,0.32),transparent);
+    max-width:380px;
+}
+.sep-center{
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    position:relative;
+    width:88px;height:88px;
+    flex-shrink:0;
+}
+.sep-ring{
+    position:absolute;inset:0;
+    border-radius:50%;
+    border:1px solid rgba(184,149,80,0.28);
+    animation:sepRingPulse 4s ease-in-out infinite;
+}
+.sep-ring-2{
+    position:absolute;
+    inset:-12px;
+    border-radius:50%;
+    border:1px solid rgba(184,149,80,0.12);
+    animation:sepRingPulse 4s ease-in-out 0.7s infinite;
+}
+@keyframes sepRingPulse{
+    0%,100%{opacity:0.7;transform:scale(1);}
+    50%{opacity:0.25;transform:scale(1.06);}
+}
+.sep-logo{
+    height:36px;width:auto;
+    opacity:0.78;
+    position:relative;z-index:1;
+    filter:
+        drop-shadow(0 2px 5px rgba(0,0,0,0.95))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.75))
+        drop-shadow(0 0 10px rgba(184,149,80,0.18));
+    transition:opacity 0.3s ease,filter 0.3s ease;
+}
+.sep-center:hover .sep-logo{
+    opacity:1;
+    filter:
+        drop-shadow(0 2px 5px rgba(0,0,0,0.95))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.75))
+        drop-shadow(0 0 22px rgba(184,149,80,0.5));
+}
+
+/* Valores */
+.val-strip{background:var(--carbon);padding:clamp(2.5rem,5vh,4rem) 0;}
+.val-hd{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:2rem;flex-wrap:wrap;}
+.val-hd .eyebrow{margin-bottom:0;}
+.val-hd h2{font-family:var(--ff-d);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:300;color:var(--white);margin:0;}
+.val-hd h2 em{font-style:italic;color:var(--gold);}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);}
+.val-item{
+    padding:1.5rem 1.6rem;border-right:1px solid var(--border);
+    border-left:2px solid transparent;
+    opacity:0;transform:translateY(12px);
+    transition:opacity 0.45s ease,transform 0.45s var(--ease),
+               border-left-color 0.6s ease,background 0.3s ease;
+}
+.val-item:nth-child(3n){border-right:none;}
+.val-item:nth-child(n+4){border-top:1px solid var(--border);}
+/* Al entrar: borde dorado sutil aparece */
+.val-item.v{opacity:1;transform:none;border-left-color:rgba(184,149,80,0.22);}
+.val-item:hover{border-left-color:var(--gold);background:rgba(184,149,80,0.04);}
+.val-item.feat{background:rgba(184,149,80,0.05);border-left:2px solid var(--gold);}
+.val-item.feat.v{border-left-color:var(--gold);}
+.val-icon{font-size:16px;color:var(--gold);opacity:0.6;display:block;margin-bottom:0.45rem;}
+.val-item h4{font-family:var(--ff-d);font-size:1.05rem;font-weight:500;color:var(--gold-pale);margin-bottom:0.4rem;}
+.val-item p{font-size:0.82rem;color:rgba(255,255,255,0.34);line-height:1.7;}
+.val-item.feat h4{color:var(--gold-l);}
+.val-item.feat p{color:rgba(255,255,255,0.5);}
+
+/* ══ EQUIPO — spotlight progresivo ════════════════════ */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+.team-member:nth-child(5){grid-column:2;}
+.team-member:nth-child(6){grid-column:3;}
+.team-member{
+    background:var(--carbon-2);border:1px solid var(--border);
+    border-top:2px solid transparent;border-radius:var(--r);
+    padding:1.6rem 1.1rem 1.4rem;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    opacity:0;transform:translateY(16px);
+    transition:opacity 0.5s var(--ease),transform 0.5s var(--ease),
+               border-top-color 0.3s ease,border-color 0.3s ease,
+               box-shadow 0.3s ease,background 0.3s ease;
+}
+.team-member.v{opacity:1;transform:none;}
+/* Estado spotlight — animación automática */
+.team-member.spotlight{
+    border-top-color:var(--gold);
+    border-color:var(--border-m);
+    background:var(--carbon-3);
+    box-shadow:0 0 0 1px rgba(184,149,80,0.2), 0 12px 36px rgba(0,0,0,0.55);
+}
+.team-member.spotlight .team-img{
+    border-color:var(--gold-l);
+    transform:scale(1.06);
+}
+.team-member.spotlight h4{ color:var(--gold-l); }
+/* Hover manual */
+.team-member:hover{
+    border-top-color:var(--gold);border-color:var(--border-m);
+    box-shadow:0 10px 32px rgba(0,0,0,0.5);
+}
+.team-member:hover h4{ color:var(--gold-l); }
+.team-img-wrap{position:relative;margin:0 auto 0.9rem;flex-shrink:0;}
+.team-img{
+    width:90px;height:90px;border-radius:50%;
+    object-fit:cover;object-position:center top;
+    border:2px solid var(--gold);display:block;
+    transition:border-color 0.3s ease,transform 0.4s var(--ease);
+}
+.team-member:hover .team-img{border-color:var(--gold-l);transform:scale(1.06);}
+.team-member h4{font-family:var(--ff-d);font-size:0.96rem;font-weight:500;color:var(--offwhite);margin-bottom:0.15rem;line-height:1.2;}
+.team-member .role{
+    font-family:var(--ff-c);font-size:0.62rem;font-weight:600;
+    letter-spacing:1.3px;text-transform:uppercase;
+    color:var(--gold);display:block;margin-bottom:0.7rem;line-height:1.4;
+}
+.team-member .desc{font-size:0.77rem;color:rgba(255,255,255,0.32);line-height:1.65;text-align:left;}
+
+/* ══ FOOTER ════════════════════════════════════════════ */
+footer{
+    background:var(--carbon);
+    border-top:1px solid var(--border);
+    padding:2.8rem 0 2rem;
+    text-align:center;
+    position:relative;
+}
+footer::before{
+    content:'';
+    position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:80px;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.footer-icon{
+    height:48px;width:auto;display:block;
+    margin:0 auto 1rem;
+    /* color original del logo — sin filtros */
+    opacity:0.88;
+    transition:opacity 0.3s ease;
+}
+footer:hover .footer-icon{opacity:1;}
+.ft-tagline{
+    font-family:var(--ff-c);font-size:0.75rem;
+    letter-spacing:2px;text-transform:uppercase;
+    color:rgba(255,255,255,0.28);margin-bottom:0.5rem;
+}
+.ft-sep{
+    width:32px;height:1px;
+    background:rgba(184,149,80,0.3);
+    margin:1rem auto;
+}
+.ft-copy{
+    font-family:var(--ff-c);font-size:0.63rem;
+    letter-spacing:0.8px;color:rgba(255,255,255,0.15);
+}
+
+/* ══ WHATSAPP FLOTANTE ══════════════════════════════════ */
+.wa-float-wrap{position:fixed;bottom:1.6rem;right:1.6rem;z-index:8500;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;}
+.wa-popup{
+    background:var(--carbon-2);border:1px solid var(--border-m);
+    border-radius:6px;padding:1rem 1.1rem;min-width:245px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.55);
+    opacity:0;transform:translateY(10px) scale(0.97);
+    pointer-events:none;
+    transition:opacity 0.3s var(--ease),transform 0.3s var(--ease);
+}
+.wa-popup.open{opacity:1;transform:none;pointer-events:all;}
+.wa-popup-title{
+    font-family:var(--ff-c);font-size:0.66rem;font-weight:600;
+    letter-spacing:2px;text-transform:uppercase;
+    color:rgba(255,255,255,0.38);display:block;
+    margin-bottom:0.8rem;padding-bottom:0.6rem;border-bottom:1px solid var(--border);
+}
+.wa-contact{
+    display:flex;align-items:center;gap:0.75rem;
+    padding:0.6rem 0;text-decoration:none;
+    border-bottom:1px solid var(--border);cursor:pointer;
+    transition:padding-left 0.2s var(--ease);
+}
+.wa-contact:last-of-type{border-bottom:none;padding-bottom:0;}
+.wa-contact:hover{padding-left:4px;}
+.wa-contact:hover .wa-cn{color:var(--gold-l);}
+.wa-avatar{width:36px;height:36px;border-radius:50%;background:rgba(184,149,80,0.1);border:1px solid var(--border-m);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wa-avatar svg{width:18px;height:18px;fill:#25D366;}
+.wa-info{flex:1;min-width:0;}
+.wa-cn{font-size:0.85rem;color:var(--offwhite);font-family:var(--ff-b);font-weight:500;display:block;transition:color 0.2s ease;}
+.wa-cd{font-size:0.72rem;color:rgba(255,255,255,0.33);font-family:var(--ff-c);letter-spacing:0.5px;}
+.wa-arr{font-size:0.75rem;color:rgba(184,149,80,0.45);}
+.wa-btn{
+    width:52px;height:52px;background:#25D366;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 18px rgba(37,211,102,0.35);
+    cursor:pointer;border:none;
+    transition:transform 0.25s var(--ease),box-shadow 0.25s ease;
+    animation:fadeIn 1s ease 2s both;flex-shrink:0;
+}
+.wa-btn:hover{transform:scale(1.1);box-shadow:0 6px 26px rgba(37,211,102,0.55);}
+.wa-btn svg{width:27px;height:27px;fill:white;}
+.wa-btn.active{background:#1aaa52;}
+
+/* ══ KEYFRAMES ═════════════════════════════════════════ */
+@keyframes fadeIn {from{opacity:0}to{opacity:1}}
+@keyframes fadeUp {from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pulse  {0%,100%{opacity:0.45;transform:scaleY(0.88)}50%{opacity:1;transform:scaleY(1.12)}}
+
+/* ══ RESPONSIVE ════════════════════════════════════════ */
+@media(max-width:1100px){
+    .team-grid{grid-template-columns:repeat(3,1fr);}
+    .team-member:nth-child(5),.team-member:nth-child(6){grid-column:auto;}
+}
+@media(max-width:960px){
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .stat-item:nth-child(2){border-right:none;}
+    .stat-item:nth-child(3){border-right:1px solid var(--border);border-top:1px solid var(--border);}
+    .stat-item:nth-child(4){border-right:none;border-top:1px solid var(--border);}
+    .services-grid{grid-template-columns:1fr 1fr;}
+    .service-card{height:240px;}
+    .panel-body{grid-template-columns:1fr 1fr;}
+    .panel-hd{flex-direction:column;}
+    .panel-hd-img{width:100%;height:180px;}
+    .mv-wrap{grid-template-columns:1fr;}
+    .mv-block:first-child{border-right:none;border-bottom:1px solid var(--border);}
+    .val-grid{grid-template-columns:1fr 1fr;}
+    .val-item:nth-child(3n){border-right:1px solid var(--border);}
+    .val-item:nth-child(even){border-right:none;}
+    .val-item:nth-child(n+3){border-top:1px solid var(--border);}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .team-member:nth-child(5),.team-member:nth-child(6){grid-column:auto;}
+}
+
+/* ══ MOBILE — accordion para servicios ════════════════ */
+@media(max-width:640px){
+    :root{--nav-h:52px;}
+    nav a{font-size:0.68rem;padding:0.4rem 0.65rem;letter-spacing:1.4px;}
+    .container{padding:0 1rem;}
+    .sec{padding:2.5rem 0;}
+    .hero{padding:calc(var(--nav-h) + 10vh) 2rem 0;}
+
+    /* Sin margin negativo — flujo natural carbón */
+    #servicios{margin-top:0;}
+    #servicios .container{padding-top:2.5rem;}
+
+    /* Grid pasa a bloque para accordion */
+    .services-grid{
+        display:block;
+        background:none;
+        border:1px solid var(--border);
+        border-radius:var(--r);
+        overflow:hidden;
+    }
+
+    /* Tarjeta mobile: fila horizontal compacta */
+    .service-card{
+        height:auto;
+        display:flex;
+        align-items:center;
+        border-bottom:1px solid var(--border);
+        border-radius:0;
+        opacity:1;transform:none; /* override entrada — visible por defecto en mobile */
+    }
+    .service-card:last-of-type{border-bottom:none;}
+    .service-card.v{opacity:1;transform:none;}
+
+    /* Imagen miniatura cuadrada */
+    .service-card-image{
+        width:70px;height:70px;
+        object-fit:cover;flex-shrink:0;
+        filter:brightness(0.85);
+        transition:filter 0.2s ease;
+    }
+    .service-card.active-card .service-card-image{filter:brightness(1);}
+
+    /* Ocultar overlay de desktop */
+    .svc-overlay{
+        position:static;
+        background:none;
+        flex:1;
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        padding:0 1rem;
+        gap:0.8rem;
+        justify-content:space-between;
+    }
+    .svc-overlay-icon{
+        display:none; /* quitamos ícono en mobile para ahorrar espacio */
+    }
+    .svc-overlay h3{
+        font-family:var(--ff-d);
+        font-size:1.05rem;
+        font-weight:500;
+        color:var(--offwhite);
+        line-height:1.2;
+        margin-bottom:0;
+        transform:none;
+        transition:color 0.2s ease;
+        flex:1;
+    }
+    .service-card.active-card .svc-overlay h3{color:var(--gold-l);}
+
+    /* Flecha en lugar del botón */
+    .svc-btn{
+        opacity:1;transform:none;
+        background:transparent;
+        border:1px solid rgba(184,149,80,0.35);
+        border-radius:50%;
+        width:30px;height:30px;
+        padding:0;
+        display:flex;align-items:center;justify-content:center;
+        color:var(--gold);
+        font-size:0;  /* ocultar texto "Ver detalle" */
+        flex-shrink:0;
+        transition:background 0.2s ease,border-color 0.2s ease;
+    }
+    .svc-btn .arr{
+        font-size:1rem;
+        display:block;
+        transition:transform 0.3s var(--ease);
+    }
+    .svc-btn.open{
+        background:rgba(184,149,80,0.15);
+        border-color:var(--gold);
+    }
+    .svc-btn.open .arr{transform:rotate(45deg);}
+
+    /* Panel detalle en mobile: columna única */
+    .svc-panel{
+        grid-column:auto;
+        border-top:none;
+        border-bottom:1px solid var(--border);
+    }
+    .panel-in{padding:1.2rem 1rem;}
+    .panel-hd{flex-direction:column;gap:1rem;}
+    .panel-hd-img{width:100%;height:160px;}
+    .panel-body{grid-template-columns:1fr;}
+    .panel-cta{flex-direction:column;align-items:stretch;}
+    .panel-cta-btn{justify-content:center;padding:0.75rem;}
+
+    /* Resto de secciones */
+    .val-grid{grid-template-columns:1fr;}
+    .val-item{border-right:none!important;}
+    .val-item:nth-child(n+2){border-top:1px solid var(--border)!important;}
+    .team-grid{grid-template-columns:1fr 1fr;}
+    .team-member:nth-child(5),.team-member:nth-child(6){grid-column:auto;}
+    .wa-popup{min-width:210px;}
+    .sec-hd{margin-bottom:1.5rem;}
+    .sep-line{max-width:100px;}
+}
+
+@media(max-width:400px){
+    nav a{font-size:0.62rem;padding:0.35rem 0.5rem;letter-spacing:1px;}
+    .team-grid{grid-template-columns:1fr;}
+    .stat-number{font-size:2rem;}
+    .service-card-image{width:60px;height:60px;}
+    .svc-overlay h3{font-size:0.95rem;}
+}
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <ul>
+        <li><a href="#inicio"    data-section="inicio">Inicio</a></li>
+        <li><a href="#servicios" data-section="servicios">Servicios</a></li>
+        <li><a href="#nosotros"  data-section="nosotros">Nosotros</a></li>
+        <li><a href="#equipo"    data-section="equipo">Equipo</a></li>
+    </ul>
+</nav>
+
+<!-- HERO — logo con nombre, bloque en tercio superior -->
+<section class="hero" id="inicio">
+    <div class="hero-particles" id="hero-particles"></div>
+    <div class="hero-block">
+        <div class="hero-logo">
+            <img src="images/logo-texto.png" alt="Geoda — Servicios Integrales para la Minería">
+        </div>
+        <p class="hero-eyebrow">Consultoría Minera · Mendoza &amp; San Juan</p>
+        <h1>De la Exploración<br>al <em>Valor</em></h1>
+        <p class="hero-sub">Soluciones Integrales en Minería</p>
+    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div></div>
+</section>
+
+<!-- SERVICIOS — mundo oscuro continuo con hero -->
+<section id="servicios">
+    <div class="container">
+        <div class="sec-hd">
+            <span class="eyebrow">Lo que hacemos</span>
+            <h2 class="sec-title sec-title-w">Nuestros <em>Servicios</em></h2>
+            <div class="rule"></div>
+        </div>
+        <div class="services-grid" id="services-grid">
+
+            <!-- 1. Exploración -->
+            <div class="service-card" data-service="exploracion" onclick="togglePanel('exploracion',this.querySelector('.svc-btn'))">
+                <img src="images/exploracion.png" alt="Exploración" class="service-card-image" loading="lazy">
+                <div class="svc-overlay">
+                    <div class="svc-overlay-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                    <h3>Prospección y Exploración Minera</h3>
+                    <button class="svc-btn" aria-hidden="true">Ver detalle <span class="arr">+</span></button>
+                </div>
+            </div>
+
+            <!-- 2. Perforación -->
+            <div class="service-card" data-service="perforacion" onclick="togglePanel('perforacion',this.querySelector('.svc-btn'))">
+                <img src="images/perforacion.png" alt="Perforación" class="service-card-image" loading="lazy">
+                <div class="svc-overlay">
+                    <div class="svc-overlay-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M8 6l4-4 4 4"/><path d="M3 12h18"/></svg></div>
+                    <h3>Perforación: Consultoría y Servicios</h3>
+                    <button class="svc-btn" aria-hidden="true">Ver detalle <span class="arr">+</span></button>
+                </div>
+            </div>
+
+            <!-- 3. GIS -->
+            <div class="service-card" data-service="gis" onclick="togglePanel('gis',this.querySelector('.svc-btn'))">
+                <img src="images/gis.png" alt="GIS" class="service-card-image" loading="lazy">
+                <div class="svc-overlay">
+                    <div class="svc-overlay-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
+                    <h3>Soporte Técnico GIS</h3>
+                    <button class="svc-btn" aria-hidden="true">Ver detalle <span class="arr">+</span></button>
+                </div>
+            </div>
+
+            <!-- Panel Exploración — foto2 -->
+            <div class="svc-panel" id="panel-exploracion">
+                <div class="panel-in">
+                    <div class="panel-hd">
+                        <img src="images/exploracion2.png" alt="Exploración" class="panel-hd-img">
+                        <div class="panel-hd-txt"><h3>Prospección y Exploración Minera</h3><p>Brindamos soluciones integrales en la etapa más crítica del ciclo minero. Nuestro equipo combina experiencia de campo con gestión técnica rigurosa para identificar y evaluar oportunidades con alto potencial geológico, optimizando recursos y reduciendo incertidumbres.</p></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-col"><h4>Servicios de campo</h4><ul><li>Reconocimiento y prospección de áreas</li><li>Búsqueda y evaluación de proyectos</li><li>Muestreo de sedimentos de corriente</li><li>Muestreo de suelos (geoquímica)</li><li>Rock-chip sampling (esquirlas)</li><li>Mapeo geológico básico y detallado</li><li>Control logístico de campaña</li></ul></div>
+                        <div class="panel-col"><h4>Gabinete y datos</h4><ul><li>Gestión y validación de base de datos</li><li>Interpretación de resultados analíticos</li><li>Soporte en redacción de informes</li><li>Elaboración de mapas temáticos</li><li>Control de calidad (QA/QC)</li><li>Comunicación con laboratorios</li></ul></div>
+                        <div class="panel-col"><h4>Equipo asignado</h4><div class="panel-team"><div class="ptcard"><img src="images/Claudio.jpeg" alt="Claudio"><div><strong>Lic. Claudio Devaux</strong><span>Principal Geologist</span></div></div><div class="ptcard"><img src="images/Andres.jpeg" alt="Andrés"><div><strong>Andrés Lasry</strong><span>Geólogo Senior – Espectrometría</span></div></div></div></div>
+                    </div>
+                    <div class="panel-cta"><p>¿Tenés un área o proyecto que necesita evaluación geológica?</p><a href="https://wa.me/5492612574780?text=Hola%20Raúl,%20me%20interesa%20Exploración%20en%20Geoda" target="_blank" class="panel-cta-btn">Consultar ahora →</a></div>
+                </div>
+            </div>
+
+            <!-- Panel Perforación — foto2 -->
+            <div class="svc-panel" id="panel-perforacion">
+                <div class="panel-in">
+                    <div class="panel-hd">
+                        <img src="images/perforacion2.png" alt="Perforación" class="panel-hd-img">
+                        <div class="panel-hd-txt"><h3>Perforación: Consultoría y Servicios</h3><p>Más de 35 años de experiencia en sistemas de perforación minera, energética e industrial. Consultoría técnica especializada, auditoría de programas, implementación de SGI y supervisión directa en campo.</p></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-col"><h4>Sistemas de perforación</h4><ul><li>Diamond Drill Holes (DDH)</li><li>Reverse Circulation (RC)</li><li>Down The Hole (DTH)</li><li>Rotary – Aire y lodo</li><li>Perforación direccionada</li><li>Sondajes geotécnicos</li><li>Pozos de monitoreo</li></ul></div>
+                        <div class="panel-col"><h4>Consultoría y gestión</h4><ul><li>Implementación de SGI</li><li>Auditoría de programas</li><li>Formación y capacitación de RRHH</li><li>Orientación de testigos</li><li>Medición y control de desvíos</li><li>Supervisión técnica en campo</li><li>Cortinas hidráulicas para relaves</li></ul></div>
+                        <div class="panel-col"><h4>Equipo asignado</h4><div class="panel-team"><div class="ptcard"><img src="images/Fernando.jpeg" alt="Fernando"><div><strong>Ing. Fernando Valdés</strong><span>Ing. Senior – Perforación</span></div></div><div class="ptcard"><img src="images/Raul.jpeg" alt="Raúl"><div><strong>Raúl Velázquez</strong><span>Director de Negocios</span></div></div><div class="ptcard"><img src="images/Claudio.jpeg" alt="Claudio"><div><strong>Lic. Claudio Devaux</strong><span>Principal Geologist</span></div></div></div></div>
+                    </div>
+                    <div class="panel-cta"><p>¿Necesitás supervisión, auditoría o ejecución de un programa de perforación?</p><a href="https://wa.me/5492612574780?text=Hola%20Raúl,%20me%20interesa%20Perforación%20en%20Geoda" target="_blank" class="panel-cta-btn">Consultar ahora →</a></div>
+                </div>
+            </div>
+
+            <!-- Panel GIS — foto2 -->
+            <div class="svc-panel" id="panel-gis">
+                <div class="panel-in">
+                    <div class="panel-hd">
+                        <img src="images/gis2.jpg" alt="GIS" class="panel-hd-img">
+                        <div class="panel-hd-txt"><h3>Soporte Técnico GIS</h3><p>Transformamos datos geológicos y territoriales en cartografía técnica de alto impacto. 30+ años de experiencia en información geoespacial aplicada a la minería, con dominio de ArcGIS y análisis espacial avanzado.</p></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-col"><h4>Análisis y cartografía</h4><ul><li>Revisión bibliográfica y antecedentes</li><li>Georreferenciación de datos históricos</li><li>Digitalización de planos analógicos</li><li>Mapas temáticos e ilustraciones</li><li>Secciones transversales</li><li>Integración de datos de perforación</li></ul></div>
+                        <div class="panel-col"><h4>Teledetección y drones</h4><ul><li>Mapeo aéreo con drones</li><li>Imágenes multiespectrales</li><li>Modelos digitales de elevación</li><li>Análisis de imágenes satelitales</li><li>Ortomosaicos de alta resolución</li><li>Productos visuales para informes</li></ul></div>
+                        <div class="panel-col"><h4>Equipo asignado</h4><div class="panel-team"><div class="ptcard"><img src="images/Javier.jpeg" alt="Javier"><div><strong>Javier Morales</strong><span>Esp. en Información Geoespacial</span></div></div></div></div>
+                    </div>
+                    <div class="panel-cta"><p>¿Necesitás cartografía técnica o análisis geoespacial?</p><a href="https://wa.me/5492612574780?text=Hola%20Raúl,%20me%20interesa%20GIS%20en%20Geoda" target="_blank" class="panel-cta-btn">Consultar ahora →</a></div>
+                </div>
+            </div>
+
+            <!-- 4. Drones -->
+            <div class="service-card" data-service="drones" onclick="togglePanel('drones',this.querySelector('.svc-btn'))">
+                <img src="images/drones.png" alt="Espectrometría y Drones" class="service-card-image" loading="lazy">
+                <div class="svc-overlay">
+                    <div class="svc-overlay-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 1 3 3v1a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M5 10a3 3 0 0 1 3 3v1a3 3 0 0 1-6 0v-1a3 3 0 0 1 3-3z"/><path d="M19 10a3 3 0 0 1 3 3v1a3 3 0 0 1-6 0v-1a3 3 0 0 1 3-3z"/><path d="M12 6v4M5 13h3M16 13h3"/></svg></div>
+                    <h3>Espectrometría y Drones</h3>
+                    <button class="svc-btn" aria-hidden="true">Ver detalle <span class="arr">+</span></button>
+                </div>
+            </div>
+
+            <!-- 5. Infraestructura -->
+            <div class="service-card" data-service="infraestructura" onclick="togglePanel('infraestructura',this.querySelector('.svc-btn'))">
+                <img src="images/infraestructura.png" alt="Infraestructura" class="service-card-image" loading="lazy">
+                <div class="svc-overlay">
+                    <div class="svc-overlay-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V8l8-6 8 6v12M10 20v-6h4v6"/></svg></div>
+                    <h3>Infraestructura</h3>
+                    <button class="svc-btn" aria-hidden="true">Ver detalle <span class="arr">+</span></button>
+                </div>
+            </div>
+
+            <!-- 6. Medio Ambiente -->
+            <div class="service-card" data-service="medioambiente" onclick="togglePanel('medioambiente',this.querySelector('.svc-btn'))">
+                <img src="images/medio-ambiente.png" alt="Medio Ambiente" class="service-card-image" loading="lazy">
+                <div class="svc-overlay">
+                    <div class="svc-overlay-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6c0 5.5-4 10-4 10s4-1 8 0 4 3 4 3a10 10 0 0 0-8-13z"/></svg></div>
+                    <h3>Medio Ambiente</h3>
+                    <button class="svc-btn" aria-hidden="true">Ver detalle <span class="arr">+</span></button>
+                </div>
+            </div>
+
+            <!-- Panel Drones — foto2 -->
+            <div class="svc-panel" id="panel-drones">
+                <div class="panel-in">
+                    <div class="panel-hd">
+                        <img src="images/drones2.png" alt="Drones" class="panel-hd-img">
+                        <div class="panel-hd-txt"><h3>Espectrometría y Drones</h3><p>Tecnología espectrométrica de vanguardia combinada con operación profesional de drones. PIMA/TerraSpec para identificar minerales de alteración hidrotermal; cobertura eficiente en terrenos de difícil acceso.</p></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-col"><h4>Espectrometría</h4><ul><li>Análisis con PIMA, TerraSpec y oreXpress</li><li>Minerales de alteración hidrotermal</li><li>Sistemas epitermales (alta y baja sulfuración)</li><li>Análisis de pórfidos y skarn</li><li>Informes espectrométricos detallados</li><li>Estudios técnicos especiales</li></ul></div>
+                        <div class="panel-col"><h4>Operación de drones</h4><ul><li>Vuelos de mapeo con DroneDeploy</li><li>Imágenes RGB y multiespectrales</li><li>Mapeo aéreo de alta resolución</li><li>Modelos 3D y ortomosaicos</li><li>Relevamiento de plataformas</li><li>Inspección de infraestructura</li></ul></div>
+                        <div class="panel-col"><h4>Equipo asignado</h4><div class="panel-team"><div class="ptcard"><img src="images/Andres.jpeg" alt="Andrés"><div><strong>Andrés Lasry</strong><span>Geólogo Senior – Espectrometría</span></div></div><div class="ptcard"><img src="images/Javier.jpeg" alt="Javier"><div><strong>Javier Morales</strong><span>Esp. Geoespacial – Drones</span></div></div></div></div>
+                    </div>
+                    <div class="panel-cta"><p>¿Querés identificar minerales de alteración o relevar tu área con drones?</p><a href="https://wa.me/5492612574780?text=Hola%20Raúl,%20me%20interesa%20Espectrometría%20en%20Geoda" target="_blank" class="panel-cta-btn">Consultar ahora →</a></div>
+                </div>
+            </div>
+
+            <!-- Panel Infraestructura — foto2 -->
+            <div class="svc-panel" id="panel-infraestructura">
+                <div class="panel-in">
+                    <div class="panel-hd">
+                        <img src="images/infraestructura2.png" alt="Infraestructura" class="panel-hd-img">
+                        <div class="panel-hd-txt"><h3>Infraestructura para Proyectos Mineros</h3><p>Obras de infraestructura civil para proyectos mineros en alta montaña. Ingeniería especializada en caminos y experiencia en entornos remotos para habilitar acceso y operación segura.</p></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-col"><h4>Obras civiles</h4><ul><li>Construcción de caminos de montaña</li><li>Plataformas de perforación</li><li>Campamentos de campaña</li><li>Provisión de energía (generadores)</li><li>Drenaje y control de erosión</li></ul></div>
+                        <div class="panel-col"><h4>Estudios técnicos</h4><ul><li>Calicatas para evaluación geológica</li><li>Estudio de suelos y fundaciones</li><li>Evaluación de estabilidad de taludes</li><li>Relevamiento topográfico</li><li>Planificación de accesos para maquinaria</li></ul></div>
+                        <div class="panel-col"><h4>Equipo asignado</h4><div class="panel-team"><div class="ptcard"><img src="images/Damian.jpeg" alt="Damián"><div><strong>Damián Galdame</strong><span>Ingeniero Civil Senior</span></div></div><div class="ptcard"><img src="images/Raul.jpeg" alt="Raúl"><div><strong>Raúl Velázquez</strong><span>Director de Proyectos</span></div></div></div></div>
+                    </div>
+                    <div class="panel-cta"><p>¿Necesitás habilitación de accesos, plataformas o campamentos?</p><a href="https://wa.me/5492612574780?text=Hola%20Raúl,%20me%20interesa%20Infraestructura%20en%20Geoda" target="_blank" class="panel-cta-btn">Consultar ahora →</a></div>
+                </div>
+            </div>
+
+            <!-- Panel Medio Ambiente — foto2 -->
+            <div class="svc-panel" id="panel-medioambiente">
+                <div class="panel-in">
+                    <div class="panel-hd">
+                        <img src="images/medio-ambiente2.png" alt="Medio Ambiente" class="panel-hd-img">
+                        <div class="panel-hd-txt"><h3>Gestión Ambiental Minera</h3><p>La gestión ambiental responsable es requisito para el desarrollo minero en Argentina. Acompañamos desde la línea de base hasta el EIA, promoviendo una minería sustentable y legalmente sólida.</p></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-col"><h4>Estudios ambientales</h4><ul><li>Informe de Impacto Ambiental (EIA)</li><li>Estudio de línea de base ambiental</li><li>Caracterización de ecosistemas</li><li>Monitoreo de agua, suelo y aire</li><li>Evaluación de biodiversidad</li></ul></div>
+                        <div class="panel-col"><h4>Evaluación y cumplimiento</h4><ul><li>Evaluación de minerales con impacto ambiental</li><li>Análisis de riesgo ambiental</li><li>Planes de gestión ambiental</li><li>Soporte ante organismos regulatorios</li><li>Auditoría ambiental de operaciones</li></ul></div>
+                        <div class="panel-col"><h4>Equipo asignado</h4><div class="panel-team"><div class="ptcard"><img src="images/Javier.jpeg" alt="Javier"><div><strong>Javier Morales</strong><span>Esp. en Gestión Ambiental</span></div></div><div class="ptcard"><img src="images/Claudio.jpeg" alt="Claudio"><div><strong>Lic. Claudio Devaux</strong><span>Principal Geologist</span></div></div></div></div>
+                    </div>
+                    <div class="panel-cta"><p>¿Tu proyecto requiere EIA u otros estudios ambientales?</p><a href="https://wa.me/5492612574780?text=Hola%20Raúl,%20me%20interesa%20Medio%20Ambiente%20en%20Geoda" target="_blank" class="panel-cta-btn">Consultar ahora →</a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item"><span class="stat-number"><span class="count" data-target="35">0</span><span class="stat-unit">+</span></span><span class="stat-label">Años de experiencia</span></div>
+            <div class="stat-item"><span class="stat-number"><span class="count" data-target="6">0</span></span><span class="stat-label">Servicios especializados</span></div>
+            <div class="stat-item"><span class="stat-number"><span class="count" data-target="6">0</span></span><span class="stat-label">Profesionales senior</span></div>
+            <div class="stat-item"><span class="stat-number"><span class="count" data-target="2">0</span></span><span class="stat-label">Sedes operativas</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- NOSOTROS — bloques sólidos sin imagen -->
+<section id="nosotros">
+    <div class="mv-wrap">
+        <div class="mv-block">
+            <span class="mv-tag">Misión</span>
+            <h3>Consultoría con<br><em>precisión técnica</em><br>y ética intacta</h3>
+            <div class="mv-rule"></div>
+            <p>Brindamos servicios de consultoría en exploración minera con altos estándares de calidad, precisión técnica y compromiso ético. Acompañamos en todas las etapas del proyecto, aportando soluciones personalizadas que optimizan recursos y reducen riesgos.</p>
+        </div>
+        <div class="mv-block">
+            <span class="mv-tag">Visión</span>
+            <h3>La consultora de<br>referencia en<br><em>exploración regional</em></h3>
+            <div class="mv-rule"></div>
+            <p>Aspiramos a ser aliados estratégicos de nuestros clientes, brindando soluciones integrales, innovadoras y eficientes. Creemos en una minería responsable, sustentable y técnicamente sólida que genere valor desde las primeras etapas de exploración.</p>
+        </div>
+    </div>
+    <div class="mv-sep">
+        <div class="sep-line"></div>
+        <div class="sep-center">
+            <div class="sep-ring"></div>
+            <div class="sep-ring-2"></div>
+            <img src="images/logo-only.png" alt="" class="sep-logo" aria-hidden="true">
+        </div>
+        <div class="sep-line"></div>
+    </div>
+    <div class="val-strip">
+        <div class="container">
+            <div class="val-hd"><span class="eyebrow">En qué creemos</span><h2>Nuestros <em>Valores</em></h2></div>
+            <div class="val-grid">
+                <div class="val-item"><span class="val-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><h4>Excelencia Profesional</h4><p>Equipo altamente calificado, comprometido con la mejora continua y la actualización técnica permanente.</p></div>
+                <div class="val-item"><span class="val-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><h4>Compromiso con el Cliente</h4><p>Escuchamos, entendemos y nos adaptamos a las necesidades específicas de cada proyecto.</p></div>
+                <div class="val-item feat"><span class="val-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><h4>Integridad</h4><p>Hacemos lo correcto y cumplimos nuestra palabra. La forma de obtener el resultado importa tanto como el resultado mismo.</p></div>
+                <div class="val-item"><span class="val-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></span><h4>Innovación</h4><p>Aplicamos tecnología de vanguardia y metodologías actualizadas para ofrecer soluciones más precisas y efectivas.</p></div>
+                <div class="val-item"><span class="val-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6c0 5.5-4 10-4 10s4-1 8 0 4 3 4 3a10 10 0 0 0-8-13z"/></svg></span><h4>Sustentabilidad</h4><p>Promovemos prácticas responsables con el entorno, cuidando los recursos naturales y las comunidades donde operamos.</p></div>
+                <div class="val-item"><span class="val-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><h4>Trabajo en Equipo</h4><p>Fomentamos un ambiente colaborativo, multidisciplinario y orientado a resultados tangibles.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EQUIPO — solo integrantes, sin banner -->
+<section id="equipo" class="sec sec-dark">
+    <div class="container">
+        <div class="sec-hd sec-hd-c">
+            <span class="eyebrow">Las personas detrás del trabajo</span>
+            <h2 class="sec-title sec-title-w">Nuestro <em>Equipo</em></h2>
+            <div class="rule rule-c"></div>
+        </div>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-img-wrap"><img src="images/Fernando.jpeg" alt="Fernando Valdés" class="team-img" loading="lazy"></div>
+                <h4>Ing. Fernando Valdés</h4><span class="role">Ing. Senior – Perforación</span>
+                <p class="desc">35 años en Minería, Energía e Industria. Especialista en DDH, RC, DTH, Rotary, perforaciones direccionadas y sondajes geotécnicos.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-img-wrap"><img src="images/Claudio.jpeg" alt="Claudio Devaux" class="team-img" loading="lazy"></div>
+                <h4>Lic. Claudio Devaux</h4><span class="role">Principal Geologist</span>
+                <p class="desc">AusIMM member, Persona Competente CCRR. 35 años en exploración. Participó en el descubrimiento de Agua Rica (4,5Mt Cu / 6,5Moz Au).</p>
+            </div>
+            <div class="team-member">
+                <div class="team-img-wrap"><img src="images/Damian.jpeg" alt="Damián Galdame" class="team-img" loading="lazy"></div>
+                <h4>Damián Galdame</h4><span class="role">Ingeniero Civil Senior</span>
+                <p class="desc">MBA ADEM. Especialista en caminos de montaña (UNSJ). Ing. Civil UTN FRM. Proyectos civiles e hidráulicos en alta montaña.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-img-wrap"><img src="images/Andres.jpeg" alt="Andrés Lasry" class="team-img" loading="lazy"></div>
+                <h4>Andrés Lasry</h4><span class="role">Geólogo Senior – Espectrometría</span>
+                <p class="desc">25+ años en minería. Especialista en alteración hidrotermal con PIMA, TerraSpec y oreXpress. Epitermales, pórfidos y Greenstones.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-img-wrap"><img src="images/Raul.jpeg" alt="Raúl Velázquez" class="team-img" loading="lazy"></div>
+                <h4>Raúl Velázquez</h4><span class="role">Director de Negocios y Proyectos</span>
+                <p class="desc">Trayectoria en dirección de obras, gestión comercial y superintendencia de perforación. Director de Lectron Ingeniería SRL.</p>
+            </div>
+            <div class="team-member">
+                <div class="team-img-wrap"><img src="images/Javier.jpeg" alt="Javier Morales" class="team-img" loading="lazy"></div>
+                <h4>Javier Morales</h4><span class="role">GIS &amp; Gestión Ambiental</span>
+                <p class="desc">30+ años en exploración y gestión ambiental. Especialista en ArcGIS aplicado a minería. Cartografía técnica e informes de alto impacto.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <img src="images/logo-texto.png" alt="Geoda" class="footer-icon">
+        <p class="ft-tagline">Servicios Integrales para la Minería</p>
+        <div class="ft-sep"></div>
+        <p class="ft-copy">Mendoza &nbsp;·&nbsp; San Juan &nbsp;·&nbsp; Argentina &nbsp;&nbsp;|&nbsp;&nbsp; &copy; 2026 Geoda. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<div class="wa-float-wrap">
+    <div class="wa-popup" id="wa-popup">
+        <span class="wa-popup-title">¿Con quién querés hablar?</span>
+        <a href="https://wa.me/5492612574780?text=Hola%20Raúl,%20me%20comunico%20desde%20la%20web%20de%20Geoda" target="_blank" rel="noopener noreferrer" class="wa-contact">
+            <div class="wa-avatar"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
+            <div class="wa-info"><span class="wa-cn">Raúl Velázquez</span><span class="wa-cd">Mendoza · +54 9 261 257-4780</span></div>
+            <span class="wa-arr">→</span>
+        </a>
+        <a href="https://wa.me/5492645428782?text=Hola%20Federico,%20me%20comunico%20desde%20la%20web%20de%20Geoda" target="_blank" rel="noopener noreferrer" class="wa-contact">
+            <div class="wa-avatar"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
+            <div class="wa-info"><span class="wa-cn">Federico Chavez</span><span class="wa-cd">San Juan · +54 9 264 542-8782</span></div>
+            <span class="wa-arr">→</span>
+        </a>
+    </div>
+    <button class="wa-btn" id="wa-btn" aria-label="Contactar por WhatsApp" onclick="toggleWA()">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </button>
+</div>
+
+<script>
+if(history.scrollRestoration)history.scrollRestoration='manual';
+window.addEventListener('load',()=>window.scrollTo(0,0));
+
+/* Partículas hero */
+(function(){
+    const c=document.getElementById('hero-particles');
+    if(!c)return;
+    for(let i=0;i<28;i++){
+        const p=document.createElement('div');p.className='particle';
+        const s=1+Math.random()*1.8;
+        p.style.cssText=[
+            'left:'+(Math.random()*100)+'%',
+            'top:'+(30+Math.random()*60)+'%',
+            'width:'+s+'px','height:'+s+'px',
+            'background:rgba(184,149,80,'+(0.25+Math.random()*0.35)+')',
+            'animation-duration:'+(6+Math.random()*10)+'s',
+            'animation-delay:'+(Math.random()*9)+'s'
+        ].join(';');
+        c.appendChild(p);
+    }
+})();
+
+/* Nav activa */
+const links=document.querySelectorAll('nav a');
+function updateNav(){
+    const sp=window.scrollY+80;let cur='inicio';
+    document.querySelectorAll('section[id]').forEach(s=>{if(sp>=s.offsetTop)cur=s.id;});
+    links.forEach(l=>l.classList.toggle('active',l.dataset.section===cur));
+}
+let raf=false;
+window.addEventListener('scroll',()=>{
+    if(!raf){requestAnimationFrame(()=>{updateNav();raf=false;});raf=true;}
+},{passive:true});
+updateNav();
+
+/* Smooth scroll */
+links.forEach(l=>l.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.getElementById(l.getAttribute('href').slice(1));
+    if(t){
+        const nh=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'));
+        window.scrollTo({top:t.offsetTop-nh,behavior:'smooth'});
+    }
+}));
+
+/* ── Contador individual con delay de inicio ── */
+function runCounter(el, startDelay){
+    const counter=el.querySelector('.count');
+    const unit=el.querySelector('.stat-unit');
+    if(!counter||counter.dataset.done)return;
+    counter.dataset.done='1';
+    if(unit)unit.style.opacity='0';
+
+    setTimeout(()=>{
+        el.classList.add('v');
+        const tgt=+counter.dataset.target,dur=1100,t0=performance.now();
+        const tick=now=>{
+            const p=Math.min((now-t0)/dur,1);
+            const ease=p<0.5?2*p*p:-1+(4-2*p)*p;
+            counter.textContent=Math.round(ease*tgt);
+            if(p<1){
+                requestAnimationFrame(tick);
+            } else {
+                counter.textContent=tgt;
+                el.classList.add('glow');
+                setTimeout(()=>el.classList.remove('glow'),900);
+                if(unit){
+                    setTimeout(()=>{
+                        unit.style.transition='opacity 0.3s ease';
+                        unit.style.opacity='1';
+                    },250);
+                }
+            }
+        };
+        requestAnimationFrame(tick);
+    }, startDelay);
+}
+
+/* ── Spotlight equipo ── */
+let teamSpotlightDone=false;
+function runSpotlight(members){
+    if(teamSpotlightDone)return;
+    teamSpotlightDone=true;
+    let idx=0;
+    const step=()=>{
+        members.forEach(m=>m.classList.remove('spotlight'));
+        if(idx<members.length){
+            members[idx].classList.add('spotlight');
+            idx++;
+            setTimeout(step,1150);
+        }
+    };
+    setTimeout(step,500);
+}
+
+/* ── IntersectionObserver ── */
+let statsTriggered=false;
+const allTeamMembers=document.querySelectorAll('.team-member');
+let teamObserved=0;
+
+const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+        if(!e.isIntersecting)return;
+        const el=e.target;
+
+        /* Stats en cascada */
+        if(el.classList.contains('stat-item')){
+            if(!statsTriggered){
+                statsTriggered=true;
+                const items=document.querySelectorAll('.stat-item');
+                [0,1350,2700,4050].forEach((delay,idx)=>{
+                    if(items[idx])runCounter(items[idx],delay);
+                });
+            }
+            io.unobserve(el);
+            return;
+        }
+
+        /* Team: entrada stagger → spotlight con timeout fijo */
+        if(el.classList.contains('team-member')){
+            setTimeout(()=>el.classList.add('v'), i*90);
+            io.unobserve(el);
+            teamObserved++;
+            /* Cuando entra el primero: esperar que todos animen (delay fijo) y lanzar spotlight */
+            if(teamObserved===1){
+                const totalDelay = allTeamMembers.length * 90 + 600;
+                setTimeout(()=>runSpotlight(allTeamMembers), totalDelay);
+            }
+            return;
+        }
+
+        /* Resto */
+        setTimeout(()=>el.classList.add('v'),i*90);
+        io.unobserve(el);
+    });
+},{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
+
+document.querySelectorAll('.stat-item,.service-card,.mv-block,.val-item,.team-member')
+    .forEach(el=>io.observe(el));
+
+/* ── Paneles — click en tarjeta completa ── */
+let active=null;
+function togglePanel(id,btn){
+    const panel=document.getElementById('panel-'+id);
+    const card=document.querySelector('[data-service="'+id+'"]');
+
+    if(active===id){
+        panel.classList.remove('active');
+        if(btn)btn.classList.remove('open');
+        if(card)card.classList.remove('active-card');
+        active=null;return;
+    }
+    if(active){
+        document.getElementById('panel-'+active)?.classList.remove('active');
+        const pb=document.querySelector('[data-service="'+active+'"] .svc-btn');
+        if(pb)pb.classList.remove('open');
+        const pc=document.querySelector('[data-service="'+active+'"]');
+        if(pc)pc.classList.remove('active-card');
+    }
+    panel.classList.add('active');
+    if(btn)btn.classList.add('open');
+    if(card)card.classList.add('active-card');
+    active=id;
+    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+window.addEventListener('scroll',()=>{
+    if(!active)return;
+    const panel=document.getElementById('panel-'+active);
+    if(!panel)return;
+    const r=panel.getBoundingClientRect();
+    if(r.bottom<-200||r.top>window.innerHeight+200){
+        panel.classList.remove('active');
+        const pb=document.querySelector('[data-service="'+active+'"] .svc-btn');
+        if(pb)pb.classList.remove('open');
+        active=null;
+    }
+},{passive:true});
+
+/* ── WA popup ── */
+let waOpen=false;
+function toggleWA(){
+    waOpen=!waOpen;
+    document.getElementById('wa-popup').classList.toggle('open',waOpen);
+    document.getElementById('wa-btn').classList.toggle('active',waOpen);
+}
+document.addEventListener('click',e=>{
+    if(waOpen&&!e.target.closest('.wa-float-wrap')){
+        waOpen=false;
+        document.getElementById('wa-popup').classList.remove('open');
+        document.getElementById('wa-btn').classList.remove('active');
+    }
+});
+
+/* ── Protección ── */
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+    const k=e.key.toLowerCase(),c=e.ctrlKey||e.metaKey;
+    if(c&&['c','a','x','u','s','p'].includes(k)){
+        if(document.activeElement?.closest('.wa-contact')||document.activeElement?.closest('.panel-cta-btn'))return;
+        e.preventDefault();
+    }
+    if(e.key==='F12'||(c&&e.shiftKey&&['i','j','c'].includes(k)))e.preventDefault();
+});
+document.addEventListener('dragstart',e=>e.preventDefault());
+document.addEventListener('selectstart',e=>{
+    if(e.target.closest('.wa-contact')||e.target.closest('.panel-cta-btn'))return;
+    e.preventDefault();
+});
+</script>
+</body>
+</html>
