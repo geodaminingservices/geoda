@@ -1,0 +1,11 @@
+TeP — Taller de Tapicería · versión 18
+
+1. Descomprimí el ZIP conservando todas las carpetas.
+2. Abrí index.html en Chrome, Edge o Brave. Las imágenes están en assets/.
+3. Para activar el envío a WhatsApp, poné el número real en tep-config.js (formato internacional, solo dígitos).
+4. El cliente completa el formulario, revisa la consulta y abre WhatsApp para enviarla. El envío no se realiza sin su confirmación.
+
+Esta versión prioriza fluidez y adaptación a celulares, tablets, notebooks y pantallas grandes.
+Las imágenes y el comparador son ejemplos ilustrativos; no representan trabajos reales del taller.
+
+No se realizaron modificaciones a otros proyectos.
